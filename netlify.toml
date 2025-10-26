@@ -8,10 +8,8 @@
   NODE_VERSION = "18"
   # Environment type
   NODE_ENV = "production"
-  # Install devDependencies
-  NPM_FLAGS = "--include=dev"
-  # Ensure clean install
-  NPM_FLAGS = "--prefer-offline"
+  # Install devDependencies with offline support
+  NPM_FLAGS = "--include=dev --prefer-offline"
 
 # Redirects for Single Page Applications (SPA)
 [[redirects]]
