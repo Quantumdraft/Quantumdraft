@@ -1,5 +1,5 @@
 [build]
-  command = "npm run build"
+  command = "npm install && npm run build"
   publish = "dist"
   functions = "netlify/functions"  # Remove this line if not using Netlify Functions
 
@@ -8,6 +8,8 @@
   NODE_VERSION = "18"
   # Environment type
   NODE_ENV = "production"
+  # Install devDependencies
+  NPM_FLAGS = "--include=dev"
 
 # Redirects for Single Page Applications (SPA)
 [[redirects]]
