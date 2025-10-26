@@ -72,7 +72,7 @@ const Footer = () => {
           <div>
             <h3 className="font-semibold mb-4">Contact</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>connect@quantumdraft.in</li>
+              <li>info.quantumdraft@gmail.com</li>
               <li>KPR Incubation Hub</li>
               <li>Coimbatore, Tamil Nadu</li>
             </ul>
