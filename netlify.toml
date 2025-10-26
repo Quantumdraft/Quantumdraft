@@ -1,15 +1,15 @@
 [build]
-  command = "npm ci && npm run build"
+  command = "npm install --include=dev && npm run build"
   publish = "dist"
   functions = "netlify/functions"  # Remove this line if not using Netlify Functions
 
 [build.environment]
   # Node.js version
   NODE_VERSION = "18"
-  # Environment type
-  NODE_ENV = "production"
   # Install devDependencies with offline support
   NPM_FLAGS = "--include=dev --prefer-offline"
+  # Set NODE_ENV to development to ensure devDependencies are installed
+  NODE_ENV = "development"
 
 # Redirects for Single Page Applications (SPA)
 [[redirects]]
