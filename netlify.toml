@@ -1,13 +1,13 @@
 [build]
   command = "npm run build"
-  publish = ".next"
-  functions = ".next/functions"
+  publish = "dist"
+  functions = "netlify/functions"  # Remove this line if not using Netlify Functions
 
 [build.environment]
   # Node.js version
   NODE_VERSION = "18"
-  # Enable Next.js SSG/SSR
-  NEXT_TELEMETRY_DISABLED = "1"
+  # Environment type
+  NODE_ENV = "production"
 
 # Redirects for Single Page Applications (SPA)
 [[redirects]]
