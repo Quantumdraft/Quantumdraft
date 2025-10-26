@@ -11,8 +11,8 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      {/* Gradient Background */}
-      <div className="absolute inset-0 gradient-hero opacity-90" />
+      {/* Black Background */}
+      <div className="absolute inset-0 bg-black opacity-90" />
       
       {/* Animated Grid Overlay */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.05)_1px,transparent_1px)] bg-[size:100px_100px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,black,transparent)]" />

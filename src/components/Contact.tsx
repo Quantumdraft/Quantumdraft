@@ -94,10 +94,10 @@ const Contact = () => {
                 <div>
                   <h3 className="font-semibold mb-2">Email Us</h3>
                   <a
-                    href="mailto:connect@quantumdraft.in"
+                    href="mailto:info.quantumdraft@gmail.com"
                     className="text-muted-foreground hover:text-primary transition-colors"
                   >
-                    connect@quantumdraft.in
+                    info.quantumdraft@gmail.com
                   </a>
                 </div>
               </div>
@@ -115,6 +115,21 @@ const Contact = () => {
                 </div>
               </div>
             </div>
+            <div className="glass-card p-6 border-l-4 border-secondary">
+              <div className="flex items-start gap-4">
+                <Mail className="w-6 h-6 text-secondary mt-1" /> {/* You can replace with a phone icon if you want */}
+                <div>
+                  <h3 className="font-semibold mb-2">Call Us</h3>
+                  <a
+                    href="tel:+918925647608"
+                    className="text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    +91 8925647608
+                  </a>
+                </div>
+              </div>
+            </div>
+
 
             <div className="glass-card p-6">
               <h3 className="font-semibold mb-4">Follow Us</h3>

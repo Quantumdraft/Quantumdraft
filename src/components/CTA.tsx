@@ -38,7 +38,7 @@ const CTA = () => {
             size="lg"
             variant="outline"
             onClick={() => scrollToSection("pricing")}
-            className="text-lg px-8 border-2 border-background text-background hover:bg-background/10"
+             className="bg-background text-primary hover:bg-background/90 text-lg px-8 glow-primary"
           >
             Explore Packages <ArrowRight className="ml-2 w-5 h-5" />
           </Button>
