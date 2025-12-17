@@ -2,7 +2,6 @@ import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Services from "@/components/Services";
-import Pricing from "@/components/Pricing";
 import Innovation from "@/components/Innovation";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import CTA from "@/components/CTA";
@@ -16,7 +15,6 @@ const Index = () => {
       <Hero />
       <About />
       <Services />
-      <Pricing />
       <Innovation />
       <WhyChooseUs />
       <CTA />

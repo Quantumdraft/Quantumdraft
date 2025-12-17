@@ -10,16 +10,41 @@ const Contact = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    message: ""
+    message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // ✅ Updated handleSubmit with API integration
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Message Sent!",
-      description: "We'll get back to you within 24 hours.",
-    });
-    setFormData({ name: "", email: "", message: "" });
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        toast({
+          title: "Message Sent!",
+          description: "We'll get back to you within 24 hours.",
+        });
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        throw new Error(data.message || "Failed to send message");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again later.",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
@@ -43,7 +68,9 @@ const Contact = () => {
                 <Input
                   id="name"
                   value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, name: e.target.value })
+                  }
                   placeholder="Your name"
                   required
                   className="bg-background/50"
@@ -58,7 +85,9 @@ const Contact = () => {
                   id="email"
                   type="email"
                   value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
                   placeholder="your.email@example.com"
                   required
                   className="bg-background/50"
@@ -72,7 +101,9 @@ const Contact = () => {
                 <Textarea
                   id="message"
                   value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, message: e.target.value })
+                  }
                   placeholder="Tell us about your project..."
                   rows={5}
                   required
@@ -80,7 +111,11 @@ const Contact = () => {
                 />
               </div>
 
-              <Button type="submit" variant="gradient" className="w-full shadow-[0_0_30px_rgba(45,212,191,0.4)]">
+              <Button
+                type="submit"
+                variant="gradient"
+                className="w-full shadow-[0_0_30px_rgba(45,212,191,0.4)]"
+              >
                 Send Message
               </Button>
             </form>
@@ -109,15 +144,17 @@ const Contact = () => {
                 <div>
                   <h3 className="font-semibold mb-2">Location</h3>
                   <p className="text-muted-foreground">
-                    KPR Incubation Hub<br />
+                    KPR Incubation Hub
+                    <br />
                     Coimbatore, Tamil Nadu
                   </p>
                 </div>
               </div>
             </div>
+
             <div className="glass-card p-6 border-l-4 border-secondary">
               <div className="flex items-start gap-4">
-                <Mail className="w-6 h-6 text-secondary mt-1" /> {/* You can replace with a phone icon if you want */}
+                <Mail className="w-6 h-6 text-secondary mt-1" />
                 <div>
                   <h3 className="font-semibold mb-2">Call Us</h3>
                   <a
@@ -130,28 +167,30 @@ const Contact = () => {
               </div>
             </div>
 
-
             <div className="glass-card p-6">
               <h3 className="font-semibold mb-4">Follow Us</h3>
               <div className="flex gap-4">
                 <a
-                  href="#"
+                  href="https://www.linkedin.com/in/quantum-draft-5a7201395"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-12 h-12 rounded-lg gradient-accent flex items-center justify-center hover:scale-110 transition-transform"
-                  aria-label="LinkedIn"
                 >
                   <Linkedin className="w-5 h-5" />
                 </a>
                 <a
-                  href="#"
+                  href="https://www.instagram.com/quantum.draft"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-12 h-12 rounded-lg gradient-accent flex items-center justify-center hover:scale-110 transition-transform"
-                  aria-label="Instagram"
                 >
                   <Instagram className="w-5 h-5" />
                 </a>
                 <a
-                  href="#"
+                  href="https://twitter.com/quantumdraft"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-12 h-12 rounded-lg gradient-accent flex items-center justify-center hover:scale-110 transition-transform"
-                  aria-label="Twitter"
                 >
                   <Twitter className="w-5 h-5" />
                 </a>
@@ -161,8 +200,10 @@ const Contact = () => {
             <div className="glass-card p-6 bg-gradient-to-br from-primary/10 to-accent/10">
               <h3 className="font-semibold mb-2">Business Hours</h3>
               <p className="text-muted-foreground text-sm">
-                Monday - Friday: 9:00 AM - 6:00 PM<br />
-                Saturday: 10:00 AM - 4:00 PM<br />
+                Monday - Friday: 9:00 AM - 6:00 PM
+                <br />
+                Saturday: 10:00 AM - 4:00 PM
+                <br />
                 Sunday: Closed
               </p>
             </div>

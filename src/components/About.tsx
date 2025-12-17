@@ -1,3 +1,4 @@
+
 import { Brain, Zap, TrendingUp, Cpu } from "lucide-react";
 
 const About = () => {

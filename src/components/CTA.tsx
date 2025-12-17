@@ -34,14 +34,6 @@ const CTA = () => {
             <Calendar className="mr-2 w-5 h-5" />
             Book a Free Consultation
           </Button>
-          <Button
-            size="lg"
-            variant="outline"
-            onClick={() => scrollToSection("pricing")}
-             className="bg-background text-primary hover:bg-background/90 text-lg px-8 glow-primary"
-          >
-            Explore Packages <ArrowRight className="ml-2 w-5 h-5" />
-          </Button>
         </div>
       </div>
     </section>
