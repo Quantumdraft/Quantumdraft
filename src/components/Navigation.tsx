@@ -21,13 +21,21 @@ const Navigation = () => {
     { label: "Contact", id: "contact" },
   ];
 
+  const [activeSection, setActiveSection] = useState<string>("");
+
+  // Update active section on scroll (optional enhancement)
+  const handleNavClick = (id: string) => {
+    setActiveSection(id);
+    scrollToSection(id);
+  };
+
   return (
-    <nav className="fixed top-0 w-full z-50 glass-card border-b border-border/50">
+    <nav className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-lg border-b border-border/50">
       <div className="container-custom">
         <div className="flex items-center justify-between h-16 md:h-20">
           <div className="flex items-center space-x-3">
             <img src={logo} alt="Quantum Draft Logo" className="w-8 h-8 md:w-10 md:h-10 object-contain" />
-            <span className="text-xl md:text-2xl font-bold">Quantum Draft</span>
+            <span className="text-xl md:text-2xl font-bold font-['Space_Grotesk',sans-serif]">Quantum Draft</span>
           </div>
 
           {/* Desktop Navigation */}
@@ -35,8 +43,10 @@ const Navigation = () => {
             {navItems.map((item) => (
               <button
                 key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                className="text-muted-foreground hover:text-primary transition-colors"
+                onClick={() => handleNavClick(item.id)}
+                className={`text-muted-foreground hover:text-primary transition-colors font-['Space_Grotesk',sans-serif] font-medium ${
+                  activeSection === item.id ? "text-primary glow-soft" : ""
+                }`}
               >
                 {item.label}
               </button>
@@ -61,8 +71,10 @@ const Navigation = () => {
             {navItems.map((item) => (
               <button
                 key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                className="block w-full text-left text-muted-foreground hover:text-primary transition-colors py-2"
+                onClick={() => handleNavClick(item.id)}
+                className={`block w-full text-left text-muted-foreground hover:text-primary transition-colors py-2 font-['Space_Grotesk',sans-serif] font-medium ${
+                  activeSection === item.id ? "text-primary" : ""
+                }`}
               >
                 {item.label}
               </button>

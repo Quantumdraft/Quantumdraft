@@ -10,18 +10,15 @@ const CTA = () => {
   };
 
   return (
-    <section className="section-padding relative overflow-hidden">
-      {/* Gradient Background */}
-      <div className="absolute inset-0 gradient-accent opacity-90" />
-      
+    <section className="section-padding relative overflow-hidden bg-card">
       {/* Pattern Overlay */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.05)_1px,transparent_1px)] bg-[size:50px_50px]" />
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.03)_1px,transparent_1px)] bg-[size:50px_50px]" />
       
       <div className="container-custom relative z-10 text-center">
-        <h2 className="text-3xl md:text-5xl font-bold mb-6">
+        <h2 className="text-3xl md:text-5xl font-bold mb-6 font-['Space_Grotesk',sans-serif] font-semibold">
           Ready to Build Your Intelligent Digital System?
         </h2>
-        <p className="text-lg md:text-xl text-background/80 max-w-2xl mx-auto mb-10">
+        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 font-['Inter',sans-serif]">
           Transform your business with AI-powered automation and cutting-edge web solutions
         </p>
         
@@ -29,7 +26,8 @@ const CTA = () => {
           <Button
             size="lg"
             onClick={() => scrollToSection("contact")}
-            className="bg-background text-primary hover:bg-background/90 text-lg px-8 glow-primary"
+            variant="gradient"
+            className="text-lg px-8"
           >
             <Calendar className="mr-2 w-5 h-5" />
             Book a Free Consultation

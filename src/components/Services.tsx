@@ -90,30 +90,31 @@ const Services = () => {
 
   return (
     <section id="services" className="section-padding gradient-card relative overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(174,86,153,0.1),transparent_50%)]" />
-
       <div className="container-custom relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold mb-6">Our Services</h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <h2 className="text-3xl md:text-5xl font-bold mb-6 font-['Space_Grotesk',sans-serif] font-semibold">Our Services</h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-['Inter',sans-serif]">
             Comprehensive digital solutions designed to build, scale, and future-proof your business
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
-            <div key={index} className="glass-card p-8 group">
-              <div className="text-primary mb-6 group-hover:text-accent transition-colors group-hover:animate-glow-pulse">
+            <div 
+              key={index} 
+              className="glass-card p-8 group shadow-card hover:-translate-y-1 transition-transform duration-300"
+            >
+              <div className="text-primary mb-6 group-hover:text-accent transition-colors">
                 {service.icon}
               </div>
-              <h3 className="text-2xl font-bold mb-4">{service.title}</h3>
-              <p className="text-muted-foreground mb-6">{service.description}</p>
+              <h3 className="text-2xl font-bold mb-4 font-['Space_Grotesk',sans-serif]">{service.title}</h3>
+              <p className="text-muted-foreground mb-6 font-['Inter',sans-serif]">{service.description}</p>
 
               <ul className="space-y-3">
                 {service.features.map((feature, idx) => (
                   <li key={idx} className="flex items-start gap-2">
                     <span className="text-accent mt-1">●</span>
-                    <span className="text-sm text-muted-foreground">{feature}</span>
+                    <span className="text-sm text-muted-foreground font-['Inter',sans-serif]">{feature}</span>
                   </li>
                 ))}
               </ul>

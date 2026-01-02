@@ -17,26 +17,26 @@ const Footer = () => {
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center space-x-3 mb-4">
               <img src={logo} alt="Quantum Draft Logo" className="w-10 h-10 object-contain" />
-              <span className="text-2xl font-bold">Quantum Draft</span>
+              <span className="text-2xl font-bold font-['Space_Grotesk',sans-serif]">Quantum Draft</span>
             </div>
-            <p className="text-muted-foreground mb-4 max-w-md">
+            <p className="text-muted-foreground mb-4 max-w-md font-['Inter',sans-serif]">
               Building intelligent systems that automate how businesses grow digitally. 
               Powered by innovation at KPR Incubation Hub.
             </p>
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-sm">
               <Sparkles className="w-4 h-4 text-accent" />
-              <span className="text-muted-foreground">Incubated at KPR Incubation Hub</span>
+              <span className="text-muted-foreground font-['Inter',sans-serif]">Incubated at KPR Incubation Hub</span>
             </div>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h3 className="font-semibold mb-4">Quick Links</h3>
+            <h3 className="font-semibold mb-4 font-['Space_Grotesk',sans-serif]">Quick Links</h3>
             <ul className="space-y-2">
               <li>
                 <button
                   onClick={() => scrollToSection("about")}
-                  className="text-muted-foreground hover:text-primary transition-colors"
+                  className="text-muted-foreground hover:text-primary transition-colors font-['Inter',sans-serif]"
                 >
                   About Us
                 </button>
@@ -44,7 +44,7 @@ const Footer = () => {
               <li>
                 <button
                   onClick={() => scrollToSection("services")}
-                  className="text-muted-foreground hover:text-primary transition-colors"
+                  className="text-muted-foreground hover:text-primary transition-colors font-['Inter',sans-serif]"
                 >
                   Services
                 </button>
@@ -52,7 +52,7 @@ const Footer = () => {
               <li>
                 <button
                   onClick={() => scrollToSection("innovation")}
-                  className="text-muted-foreground hover:text-primary transition-colors"
+                  className="text-muted-foreground hover:text-primary transition-colors font-['Inter',sans-serif]"
                 >
                   Innovation Lab
                 </button>
@@ -62,8 +62,8 @@ const Footer = () => {
 
           {/* Contact */}
           <div>
-            <h3 className="font-semibold mb-4">Contact</h3>
-            <ul className="space-y-2 text-sm text-muted-foreground">
+            <h3 className="font-semibold mb-4 font-['Space_Grotesk',sans-serif]">Contact</h3>
+            <ul className="space-y-2 text-sm text-muted-foreground font-['Inter',sans-serif]">
               <li>info.quantumdraft@gmail.com</li>
               <li>KPR Incubation Hub</li>
               <li>Coimbatore, Tamil Nadu</li>
@@ -73,10 +73,10 @@ const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-border/50 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-muted-foreground font-['Inter',sans-serif]">
             © 2025 Quantum Draft. Powered by KPR Incubation Hub.
           </p>
-          <div className="flex gap-6 text-sm text-muted-foreground">
+          <div className="flex gap-6 text-sm text-muted-foreground font-['Inter',sans-serif]">
             <a href="#" className="hover:text-primary transition-colors">
               Privacy Policy
             </a>

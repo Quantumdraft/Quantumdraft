@@ -33,10 +33,10 @@ const WhyChooseUs = () => {
     <section className="section-padding gradient-card">
       <div className="container-custom">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold mb-6">
+          <h2 className="text-3xl md:text-5xl font-bold mb-6 font-['Space_Grotesk',sans-serif] font-semibold">
             Why Businesses Trust Quantum Draft
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-['Inter',sans-serif]">
             We combine innovation, automation, and intelligence to deliver exceptional results
           </p>
         </div>
@@ -45,14 +45,13 @@ const WhyChooseUs = () => {
           {usps.map((usp, index) => (
             <div
               key={index}
-              className="glass-card p-8 hover:scale-105 transition-all duration-300 group"
-              style={{ animationDelay: `${index * 0.1}s` }}
+              className="glass-card p-8 hover:-translate-y-1 transition-transform duration-300 group shadow-card"
             >
-              <div className="w-16 h-16 rounded-xl gradient-accent flex items-center justify-center mb-6 group-hover:animate-glow-pulse">
-                {usp.icon}
+              <div className="w-16 h-16 rounded-xl gradient-button flex items-center justify-center mb-6">
+                <div className="text-background">{usp.icon}</div>
               </div>
-              <h3 className="text-xl font-bold mb-3">{usp.title}</h3>
-              <p className="text-muted-foreground">{usp.description}</p>
+              <h3 className="text-xl font-bold mb-3 font-['Space_Grotesk',sans-serif]">{usp.title}</h3>
+              <p className="text-muted-foreground font-['Inter',sans-serif]">{usp.description}</p>
             </div>
           ))}
         </div>
@@ -66,8 +65,8 @@ const WhyChooseUs = () => {
             { value: "24/7", label: "Support Available" }
           ].map((stat, index) => (
             <div key={index} className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-primary mb-2">{stat.value}</div>
-              <div className="text-sm text-muted-foreground">{stat.label}</div>
+              <div className="text-3xl md:text-4xl font-bold text-primary mb-2 font-['Space_Grotesk',sans-serif]">{stat.value}</div>
+              <div className="text-sm text-muted-foreground font-['Inter',sans-serif]">{stat.label}</div>
             </div>
           ))}
         </div>

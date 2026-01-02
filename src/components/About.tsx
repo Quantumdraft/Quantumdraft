@@ -44,8 +44,8 @@ const About = () => {
     <section id="about" className="section-padding bg-background">
       <div className="container-custom">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold mb-6">Who We Are</h2>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+          <h2 className="text-3xl md:text-5xl font-bold mb-6 font-['Space_Grotesk',sans-serif] font-semibold">Who We Are</h2>
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto font-['Inter',sans-serif]">
             Quantum Draft is a digital-first innovation hub focused on automation, web development, 
             and marketing innovation. We're not just building websites — we're building intelligent 
             systems that automate how businesses grow digitally.
@@ -57,14 +57,13 @@ const About = () => {
           {features.map((feature, index) => (
             <div
               key={index}
-              className="glass-card p-6 hover:scale-105 transition-transform duration-300 group"
-              style={{ animationDelay: `${index * 0.1}s` }}
+              className="glass-card p-6 hover:-translate-y-1 transition-transform duration-300 group shadow-card"
             >
               <div className="text-primary mb-4 group-hover:text-accent transition-colors">
                 {feature.icon}
               </div>
-              <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-              <p className="text-muted-foreground text-sm">{feature.description}</p>
+              <h3 className="text-xl font-semibold mb-2 font-['Space_Grotesk',sans-serif]">{feature.title}</h3>
+              <p className="text-muted-foreground text-sm font-['Inter',sans-serif]">{feature.description}</p>
             </div>
           ))}
         </div>
@@ -74,10 +73,10 @@ const About = () => {
           {cards.map((card, index) => (
             <div
               key={index}
-              className="gradient-card p-8 rounded-xl border border-border/50 hover:border-primary/50 transition-colors"
+              className="gradient-card p-8 rounded-xl border border-border/50 hover:border-primary/50 transition-colors shadow-card hover:-translate-y-1"
             >
-              <h3 className="text-2xl font-bold mb-4 text-primary">{card.title}</h3>
-              <p className="text-muted-foreground">{card.content}</p>
+              <h3 className="text-2xl font-bold mb-4 text-primary font-['Space_Grotesk',sans-serif]">{card.title}</h3>
+              <p className="text-muted-foreground font-['Inter',sans-serif]">{card.content}</p>
             </div>
           ))}
         </div>
