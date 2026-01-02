@@ -34,7 +34,7 @@ const Navigation = () => {
       <div className="container-custom">
         <div className="flex items-center justify-between h-16 md:h-20">
           <div className="flex items-center space-x-3">
-            <img src={logo} alt="Quantum Draft Logo" className="w-8 h-8 md:w-10 md:h-10 object-contain" />
+            <img src={logo} alt="Quantum Draft Logo" className="w-10 h-10 md:w-14 md:h-14 object-contain" />
             <span className="text-xl md:text-2xl font-bold font-['Space_Grotesk',sans-serif]">Quantum Draft</span>
           </div>
 
