@@ -20,7 +20,7 @@ const Footer = () => {
               <span className="text-2xl font-bold font-['Space_Grotesk',sans-serif]">Quantum Draft</span>
             </div>
             <p className="text-muted-foreground mb-4 max-w-md font-['Inter',sans-serif]">
-              Building intelligent systems that automate how businesses grow digitally. 
+              Building intelligent systems that automate how businesses grow digitally.
               Powered by innovation at KPR Incubation Hub.
             </p>
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-sm">
@@ -56,6 +56,14 @@ const Footer = () => {
                 >
                   Innovation Lab
                 </button>
+              </li>
+              <li>
+                <a
+                  href="/admin"
+                  className="text-muted-foreground hover:text-primary transition-colors font-['Inter',sans-serif]"
+                >
+                  Admin Portal
+                </a>
               </li>
             </ul>
           </div>
