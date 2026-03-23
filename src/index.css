@@ -8,83 +8,54 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Foundations */
-    --background: 225 15% 4%;
-    --surface: 225 14% 9%;
-    --card: 225 12% 13%;
-    --border: 225 10% 18%;
+    /* Foundations - Deep Space Palette */
+    --background: 230 25% 3%;
+    --surface: 230 25% 6%;
+    --card: 230 20% 10%;
+    --border: 230 15% 15%;
 
-    /* Brand */
-    --primary: 188 92% 56%;     /* Quantum Cyan */
-    --secondary: 252 55% 48%;   /* Cosmic Indigo */
-    --accent: 165 85% 52%;      /* Neon Mint */
+    /* Quantum Brand - Higher Saturation */
+    --primary: 190 100% 50%;     /* Electric Cyan */
+    --secondary: 260 80% 60%;    /* Radiant Violet */
+    --accent: 150 100% 50%;      /* Hyper Green */
 
-    /* Text */
-    --foreground: 0 0% 96%;
-    --muted-foreground: 225 10% 62%;
+    /* Text - High Contrast */
+    --foreground: 210 20% 98%;
+    --muted-foreground: 215 15% 65%;
 
-    /* Destructive */
-    --destructive: 0 80% 60%;
+    /* Interactive States */
+    --primary-glow: 190 100% 50% / 0.4;
+    --secondary-glow: 260 80% 60% / 0.3;
 
-    /* Legacy shadcn/ui tokens (for compatibility) */
-    --card-foreground: 0 0% 96%;
-    --popover: 225 12% 13%;
-    --popover-foreground: 0 0% 96%;
-    --primary-foreground: 225 15% 4%;
-    --secondary-foreground: 0 0% 96%;
-    --muted: 225 14% 9%;
-    --accent-foreground: 225 15% 4%;
-    --destructive-foreground: 0 0% 96%;
-    --input: 225 10% 18%;
-    --ring: 188 92% 56%;
+    /* Legacy shadcn/ui tokens */
+    --card-foreground: 210 20% 98%;
+    --popover: 230 25% 6%;
+    --popover-foreground: 210 20% 98%;
+    --primary-foreground: 230 25% 3%;
+    --secondary-foreground: 210 20% 98%;
+    --muted: 230 25% 8%;
+    --accent-foreground: 230 25% 3%;
+    --destructive: 0 85% 60%;
+    --destructive-foreground: 210 20% 98%;
+    --input: 230 15% 15%;
+    --ring: 190 100% 50%;
 
-    /* Sidebar (for shadcn/ui compatibility) */
-    --sidebar-background: 225 14% 9%;
-    --sidebar-foreground: 0 0% 96%;
-    --sidebar-primary: 188 92% 56%;
-    --sidebar-primary-foreground: 225 15% 4%;
-    --sidebar-accent: 225 12% 13%;
-    --sidebar-accent-foreground: 0 0% 96%;
-    --sidebar-border: 225 10% 18%;
-    --sidebar-ring: 188 92% 56%;
+    /* Radius */
+    --radius: 16px;
 
-    /* Border Radius */
-    --radius: 12px;
+    /* Enhanced Gradients */
+    --gradient-hero: 
+      radial-gradient(circle at 50% -20%, hsl(var(--primary) / 0.15), transparent 70%),
+      radial-gradient(circle at 0% 100%, hsl(var(--secondary) / 0.1), transparent 50%),
+      linear-gradient(180deg, hsl(230 25% 4%), hsl(230 25% 2%));
 
-    /* Gradients */
-    --gradient-hero:
-      radial-gradient(
-        circle at top,
-        hsl(188 92% 56% / 0.25),
-        transparent 60%
-      ),
-      linear-gradient(
-        180deg,
-        hsl(225 15% 6%),
-        hsl(225 15% 4%)
-      );
-
-    --gradient-button:
-      linear-gradient(
-        135deg,
-        hsl(188 92% 56%),
-        hsl(165 85% 52%)
-      );
-
-    --gradient-card:
-      linear-gradient(
-        180deg,
-        hsl(225 14% 14%),
-        hsl(225 14% 9%)
-      );
+    --gradient-quantum: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--secondary)));
     
-    /* Shadows & Glows */
-    --glow-primary: 0 0 45px hsl(188 92% 56% / 0.35);
-    --glow-soft: 0 0 20px hsl(188 92% 56% / 0.15);
-    --shadow-card: 0 20px 60px hsl(225 20% 2% / 0.8);
-    
-    /* Transitions */
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
+
+    /* Polished Shadows */
+    --shadow-quantum: 0 0 30px -5px hsl(var(--primary) / 0.3);
+    --shadow-inner: inset 0 1px 1px 0 rgba(255,255,255,0.05);
   }
 }
 
@@ -105,35 +76,40 @@ All colors MUST be HSL.
 
 @layer components {
   .glass-card {
-    @apply bg-card/80 backdrop-blur-lg border border-border/50 rounded-xl;
+    @apply bg-card/40 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl;
+    box-shadow: var(--shadow-inner);
+  }
+
+  .glass-card-hover {
+    @apply hover:bg-card/60 transition-all duration-500 hover:border-white/20 hover:shadow-quantum;
   }
   
   .gradient-hero {
     background: var(--gradient-hero);
   }
   
-  .gradient-button {
-    background: var(--gradient-button);
+  .gradient-quantum {
+    background: var(--gradient-quantum);
   }
   
-  .gradient-card {
-    background: var(--gradient-card);
+  .text-glow-primary {
+    text-shadow: 0 0 20px hsl(var(--primary) / 0.5);
   }
-  
-  .glow-primary {
-    box-shadow: var(--glow-primary);
-  }
-  
-  .glow-soft {
-    box-shadow: var(--glow-soft);
-  }
-  
-  .shadow-card {
-    box-shadow: var(--shadow-card);
+
+  .quantum-border {
+    @apply relative overflow-hidden rounded-2xl;
+    &::before {
+      content: '';
+      @apply absolute inset-0 -z-10 bg-gradient-to-r from-primary/50 to-secondary/50 p-[1px] mask-gradient;
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+    }
   }
   
   .section-padding {
-    @apply py-16 px-4 md:py-24 md:px-6 lg:px-8;
+    @apply py-20 px-4 md:py-32 md:px-6 lg:px-8;
   }
   
   .container-custom {

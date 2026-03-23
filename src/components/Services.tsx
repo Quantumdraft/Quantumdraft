@@ -1,4 +1,4 @@
-import { Code, Smartphone, Palette, ShoppingCart, GraduationCap, BarChart3, FlaskConical } from "lucide-react";
+import { Code, Smartphone, Palette, ShoppingCart, GraduationCap, BarChart3, FlaskConical, ArrowRight } from "lucide-react";
 
 const Services = () => {
   const services = [
@@ -89,38 +89,65 @@ const Services = () => {
   ];
 
   return (
-    <section id="services" className="section-padding gradient-card relative overflow-hidden">
+    <section id="services" className="section-padding relative overflow-hidden">
       <div className="container-custom relative z-10">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold mb-6 font-['Space_Grotesk',sans-serif] font-semibold">Our Services</h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-['Inter',sans-serif]">
-            Comprehensive digital solutions designed to build, scale, and future-proof your business
+        <div className="text-center mb-24">
+          <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-primary/10 border border-primary/20 mb-4">
+            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+            <span className="text-xs font-bold tracking-[0.2em] uppercase text-primary">Our Expertise</span>
+          </div>
+          <h2 className="text-4xl md:text-6xl font-black mb-8 tracking-tighter">
+            Quantum <span className="text-muted-foreground">Capabilities</span>
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            We merge cutting-edge technology with creative excellence to build digital ecosystems that thrive.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {services.map((service, index) => (
             <div 
               key={index} 
-              className="glass-card p-8 group shadow-card hover:-translate-y-1 transition-transform duration-300"
+              className={`glass-card p-10 group relative overflow-hidden glass-card-hover transition-all duration-500 rounded-[2rem] border-white/5 ${
+                index % 3 === 1 ? "md:translate-y-12" : ""
+              }`}
             >
-              <div className="text-primary mb-6 group-hover:text-accent transition-colors">
-                {service.icon}
+              <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-20 transition-opacity duration-500">
+                <span className="text-8xl font-black font-['Space_Grotesk']">0{index + 1}</span>
               </div>
-              <h3 className="text-2xl font-bold mb-4 font-['Space_Grotesk',sans-serif]">{service.title}</h3>
-              <p className="text-muted-foreground mb-6 font-['Inter',sans-serif]">{service.description}</p>
 
-              <ul className="space-y-3">
-                {service.features.map((feature, idx) => (
-                  <li key={idx} className="flex items-start gap-2">
-                    <span className="text-accent mt-1">●</span>
-                    <span className="text-sm text-muted-foreground font-['Inter',sans-serif]">{feature}</span>
-                  </li>
-                ))}
-              </ul>
+              <div className="relative z-10">
+                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center text-primary mb-8 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500">
+                  {service.icon}
+                </div>
+                
+                <h3 className="text-2xl font-black mb-4 tracking-tight group-hover:text-primary transition-colors">{service.title}</h3>
+                <p className="text-muted-foreground mb-8 text-sm leading-relaxed">{service.description}</p>
+
+                <div className="space-y-4">
+                  {service.features.map((feature, idx) => (
+                    <div key={idx} className="flex items-center gap-3 group/item">
+                      <div className="w-1.5 h-1.5 rounded-full bg-primary/40 group-hover/item:bg-primary group-hover/item:scale-150 transition-all duration-300" />
+                      <span className="text-xs font-bold tracking-wide uppercase text-muted-foreground group-hover/item:text-foreground transition-colors">{feature}</span>
+                    </div>
+                  ))}
+                </div>
+                
+                <div className="mt-10 pt-8 border-t border-white/5 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0">
+                  <button className="text-xs font-black tracking-[0.3em] uppercase text-primary flex items-center gap-2 hover:gap-4 transition-all">
+                    Learn More <ArrowRight className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
             </div>
           ))}
         </div>
+      </div>
+
+      {/* Background patterns */}
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-20">
+        <div className="absolute top-1/4 left-0 w-96 h-96 bg-primary/20 blur-[120px] rounded-full" />
+        <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-secondary/20 blur-[120px] rounded-full" />
       </div>
     </section>
   );
