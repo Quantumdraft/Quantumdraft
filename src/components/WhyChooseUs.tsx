@@ -30,7 +30,7 @@ const WhyChooseUs = () => {
   ];
 
   return (
-    <section className="section-padding gradient-card">
+    <section id="innovation" className="section-padding gradient-card">
       <div className="container-custom">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold mb-6 font-['Space_Grotesk',sans-serif] font-semibold">
@@ -59,8 +59,8 @@ const WhyChooseUs = () => {
         {/* Stats Section */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16 pt-16 border-t border-border/50">
           {[
-            { value: "50+", label: "Projects Delivered" },
-            { value: "30+", label: "Happy Clients" },
+            { value: "10+", label: "Projects Delivered" },
+            { value: "10+", label: "Happy Clients" },
             { value: "100%", label: "Client Satisfaction" },
             { value: "24/7", label: "Support Available" }
           ].map((stat, index) => (

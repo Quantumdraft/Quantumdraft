@@ -6,37 +6,37 @@ const About = () => {
     {
       icon: <Brain className="w-8 h-8" />,
       title: "AI-Driven Design",
-      description: "Intelligent systems that adapt and optimize based on user behavior and data insights"
+      description: "Systems that learn and adapt based on user behavior and data."
     },
     {
       icon: <Zap className="w-8 h-8" />,
       title: "Automation Systems",
-      description: "Streamline workflows and reduce manual tasks with smart automation solutions"
+      description: "Streamline workflows with intelligent automation and integrations."
     },
     {
       icon: <TrendingUp className="w-8 h-8" />,
       title: "Performance Marketing",
-      description: "Data-driven strategies that deliver measurable ROI and sustainable growth"
+      description: "Data-driven strategies focused on measurable growth and ROI."
     },
     {
       icon: <Cpu className="w-8 h-8" />,
       title: "Intelligent Ecosystems",
-      description: "Comprehensive digital platforms that connect every aspect of your business"
+      description: "Connected digital platforms that unify business operations."
     }
   ];
 
   const cards = [
     {
       title: "Vision",
-      content: "To become a leader in digital automation by merging innovation with intelligent design systems that transform how businesses operate online."
+      content: "To lead the future of digital automation by integrating AI, intelligent systems, and scalable technologies."
     },
     {
       title: "Mission",
-      content: "Empowering businesses with automated, scalable, and intelligent digital solutions that drive growth and efficiency."
+      content: "To empower businesses with automated, efficient, and intelligent digital solutions that drive real growth."
     },
     {
       title: "Innovation Under KPR",
-      content: "Backed by KPR Incubation Hub, we're pioneering next-generation AI automation tools and design intelligence systems."
+      content: "Backed by the KPR Incubation Hub, QuantumDraft operates at the intersection of research, engineering, and real-world application."
     }
   ];
 
@@ -48,7 +48,7 @@ const About = () => {
             Digital-First <span className="text-primary text-glow-primary">Innovation</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Quantum Draft is more than a development agency. We are a digital-first innovation hub focused on AI automation, web engineering, and strategic marketing. 
+            QuantumDraft is a digital innovation ecosystem focused on building AI-powered solutions, scalable web platforms, and intelligent automation systems. We go beyond traditional development by combining technology, design, and data-driven strategies.
           </p>
         </div>
 

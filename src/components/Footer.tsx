@@ -25,7 +25,7 @@ const Footer = () => {
               </div>
             </div>
             <p className="text-muted-foreground mb-8 max-w-sm leading-relaxed text-sm font-medium">
-              Architecting the next generation of digital-first intelligence. Powered by experimental research at the KPR Incubation Hub.
+              Architecting the future of digital intelligence through AI, automation, and innovation.
             </p>
             <div className="inline-flex items-center gap-3 px-6 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-bold tracking-widest uppercase text-muted-foreground">
               <Sparkles className="w-4 h-4 text-primary animate-pulse" />
@@ -37,21 +37,16 @@ const Footer = () => {
           <div>
             <h3 className="text-sm font-black tracking-[0.3em] uppercase mb-8 text-foreground">Explore</h3>
             <ul className="space-y-4">
-              {["About", "Services", "Innovation"].map((item) => (
+              {["About", "Services", "Projects", "Contact"].map((item) => (
                 <li key={item}>
                   <button
-                    onClick={() => scrollToSection(item.toLowerCase())}
+                    onClick={() => scrollToSection(item.toLowerCase().replace(" ", "-"))}
                     className="text-muted-foreground hover:text-primary transition-all duration-300 font-bold text-sm tracking-wide"
                   >
                     {item}
                   </button>
                 </li>
               ))}
-              <li>
-                <a href="/admin" className="text-muted-foreground hover:text-primary transition-all duration-300 font-bold text-sm tracking-wide">
-                  Admin Portal
-                </a>
-              </li>
             </ul>
           </div>
 
@@ -64,7 +59,7 @@ const Footer = () => {
               </li>
               <li className="text-muted-foreground text-sm leading-relaxed">
                 KPR Incubation Hub<br />
-                Coimbatore, TN
+                Coimbatore, Tamil Nadu
               </li>
             </ul>
           </div>

@@ -1,153 +1,217 @@
-import { Code, Smartphone, Palette, ShoppingCart, GraduationCap, BarChart3, FlaskConical, ArrowRight } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { 
+  Code, 
+  Smartphone, 
+  Palette, 
+  ShoppingCart, 
+  GraduationCap, 
+  BarChart3, 
+  FlaskConical, 
+  ArrowLeft,
+  ArrowRight,
+  Zap,
+  Cpu,
+  Globe
+} from "lucide-react";
+import { gsap } from "gsap";
+
+const services = [
+  {
+    icon: <Code className="w-10 h-10" />,
+    title: "Website Development",
+    description: "High-performance websites designed for scalability and growth. Includes custom web apps, SEO-ready builds, and CMS integration.",
+    color: "from-blue-500 to-cyan-500",
+    glow: "rgba(6, 182, 212, 0.4)",
+    tag: "Protocol_01",
+    bg: "file:///C:/Users/RASHVANDH/.gemini/antigravity/brain/334b9bd3-2b7a-4063-8506-7242f11077c5/service_web_dev_bg_1774465639421.png"
+  },
+  {
+    icon: <Palette className="w-10 h-10" />,
+    title: "UI/UX, Branding & Design",
+    description: "Design systems that enhance user experience and brand identity through research, prototyping, and brand strategy.",
+    color: "from-purple-500 to-violet-500",
+    glow: "rgba(139, 92, 246, 0.4)",
+    tag: "Protocol_02",
+    bg: "file:///C:/Users/RASHVANDH/.gemini/antigravity/brain/334b9bd3-2b7a-4063-8506-7242f11077c5/service_mobile_bg_1774465654928.png"
+  },
+  {
+    icon: <ShoppingCart className="w-10 h-10" />,
+    title: "E-Commerce Solutions",
+    description: "Conversion-focused online stores with seamless payment integration, inventory management, and performance optimization.",
+    color: "from-emerald-500 to-teal-500",
+    glow: "rgba(16, 185, 129, 0.4)",
+    tag: "Protocol_03",
+    bg: "file:///C:/Users/RASHVANDH/.gemini/antigravity/brain/334b9bd3-2b7a-4063-8506-7242f11077c5/service_branding_bg_1774465672027.png"
+  },
+  {
+    icon: <Zap className="w-10 h-10" />,
+    title: "Automation & Integration",
+    description: "Smart systems connecting tools and workflows via API integrations, CRM, chatbot automation, and no-code systems.",
+    color: "from-amber-500 to-orange-500",
+    glow: "rgba(245, 158, 11, 0.4)",
+    tag: "Protocol_04",
+    bg: "file:///C:/Users/RASHVANDH/.gemini/antigravity/brain/334b9bd3-2b7a-4063-8506-7242f11077c5/service_data_bg_1774465688943.png"
+  },
+  {
+    icon: <FlaskConical className="w-10 h-10" />,
+    title: "Innovation Lab",
+    description: "Experimental development of next-generation AI tools, autonomous agents, and custom AI systems.",
+    color: "from-pink-500 to-rose-500",
+    glow: "rgba(236, 72, 153, 0.4)",
+    tag: "Protocol_05",
+    bg: "file:///C:/Users/RASHVANDH/.gemini/antigravity/brain/334b9bd3-2b7a-4063-8506-7242f11077c5/service_ai_bg_v2_1774465706894.png"
+  }
+];
 
 const Services = () => {
-  const services = [
-    {
-      icon: <Code className="w-12 h-12" />,
-      title: "Website Development",
-      description:
-        "Modern, scalable, and SEO-optimized websites built to deliver performance, usability, and business growth.",
-      features: [
-        "Corporate & portfolio websites",
-        "Custom web applications",
-        "SEO-ready & high-performance builds",
-        "CMS integration & maintenance"
-      ]
-    },
-    {
-      icon: <Smartphone className="w-12 h-12" />,
-      title: "Mobile App Development",
-      description:
-        "High-quality mobile applications designed for smooth performance, intuitive UX, and long-term scalability.",
-      features: [
-        "Android & iOS applications",
-        "Cross-platform development",
-        "Backend & API integration",
-        "App optimization & updates"
-      ]
-    },
-    {
-      icon: <Palette className="w-12 h-12" />,
-      title: "UI/UX, Graphic & Branding",
-      description:
-        "User-centered design and strong brand identity systems that improve engagement and build trust.",
-      features: [
-        "UI/UX research & prototyping",
-        "Graphic & social media creatives",
-        "Logo & brand identity design",
-        "Design systems & guidelines"
-      ]
-    },
-    {
-      icon: <ShoppingCart className="w-12 h-12" />,
-      title: "E-Commerce Solutions",
-      description:
-        "End-to-end e-commerce platforms built for conversions, secure transactions, and inventory efficiency.",
-      features: [
-        "Online store development",
-        "Payment gateway integration",
-        "Inventory & order management",
-        "Product catalog & performance optimization"
-      ]
-    },
-    {
-      icon: <GraduationCap className="w-12 h-12" />,
-      title: "Training & Tech Education",
-      description:
-        "Industry-oriented training programs focused on practical skills, real-world projects, and mentorship.",
-      features: [
-        "Web & app development training",
-        "UI/UX & design tools",
-        "AI & automation fundamentals",
-        "Hands-on projects & guidance"
-      ]
-    },
-    {
-      icon: <BarChart3 className="w-12 h-12" />,
-      title: "Data Analytics & Data Science",
-      description:
-        "Data-driven insights and analytics solutions to support smarter decision-making and business intelligence.",
-      features: [
-        "Business intelligence dashboards",
-        "Data visualization & reporting",
-        "Predictive analytics",
-        "AI & ML-based insights"
-      ]
-    },
-    {
-      icon: <FlaskConical className="w-12 h-12" />,
-      title: "Innovation Lab (Upcoming)",
-      description:
-        "Research and development of next-generation AI, automation, and intelligent digital systems.",
-      features: [
-        "AI-assisted design tools",
-        "Automation & workflow systems",
-        "Chatbot & CRM integrations",
-        "Custom AI-powered solutions"
-      ]
-    }
-  ];
+  const [activeIndex, setActiveIndex] = useState(0);
+  const sliderRef = useRef<HTMLDivElement>(null);
+  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
+
+  const nextSlide = () => {
+    setActiveIndex((prev) => (prev + 1) % services.length);
+  };
+
+  const prevSlide = () => {
+    setActiveIndex((prev) => (prev - 1 + services.length) % services.length);
+  };
+
+  useEffect(() => {
+    const cards = cardsRef.current;
+    
+    cards.forEach((card, index) => {
+      if (!card) return;
+
+      const offset = index - activeIndex;
+      const absOffset = Math.abs(offset);
+      
+      // Calculate 3D position
+      const xTranslate = offset * 120; // Spread cards horizontally
+      const zTranslate = -absOffset * 200; // Push further cards back
+      const rotateY = offset * -25; // Rotate cards to face center
+      const opacity = Math.max(0, 1 - absOffset * 0.4);
+      const scale = 1 - absOffset * 0.2;
+
+      gsap.to(card, {
+        x: `${xTranslate}%`,
+        z: zTranslate,
+        rotateY: rotateY,
+        opacity: opacity,
+        scale: scale,
+        duration: 0.8,
+        ease: "power3.out",
+        visibility: opacity <= 0 ? "hidden" : "visible",
+        pointerEvents: offset === 0 ? "auto" : "none",
+        zIndex: 100 - absOffset,
+      });
+    });
+  }, [activeIndex]);
 
   return (
-    <section id="services" className="section-padding relative overflow-hidden">
-      <div className="container-custom relative z-10">
-        <div className="text-center mb-24">
-          <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-primary/10 border border-primary/20 mb-4">
-            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-            <span className="text-xs font-bold tracking-[0.2em] uppercase text-primary">Our Expertise</span>
-          </div>
-          <h2 className="text-4xl md:text-6xl font-black mb-8 tracking-tighter">
-            Quantum <span className="text-muted-foreground">Capabilities</span>
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            We merge cutting-edge technology with creative excellence to build digital ecosystems that thrive.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {services.map((service, index) => (
-            <div 
-              key={index} 
-              className={`glass-card p-10 group relative overflow-hidden glass-card-hover transition-all duration-500 rounded-[2rem] border-white/5 ${
-                index % 3 === 1 ? "md:translate-y-12" : ""
-              }`}
-            >
-              <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-20 transition-opacity duration-500">
-                <span className="text-8xl font-black font-['Space_Grotesk']">0{index + 1}</span>
-              </div>
-
-              <div className="relative z-10">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center text-primary mb-8 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500">
-                  {service.icon}
-                </div>
-                
-                <h3 className="text-2xl font-black mb-4 tracking-tight group-hover:text-primary transition-colors">{service.title}</h3>
-                <p className="text-muted-foreground mb-8 text-sm leading-relaxed">{service.description}</p>
-
-                <div className="space-y-4">
-                  {service.features.map((feature, idx) => (
-                    <div key={idx} className="flex items-center gap-3 group/item">
-                      <div className="w-1.5 h-1.5 rounded-full bg-primary/40 group-hover/item:bg-primary group-hover/item:scale-150 transition-all duration-300" />
-                      <span className="text-xs font-bold tracking-wide uppercase text-muted-foreground group-hover/item:text-foreground transition-colors">{feature}</span>
-                    </div>
-                  ))}
-                </div>
-                
-                <div className="mt-10 pt-8 border-t border-white/5 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0">
-                  <button className="text-xs font-black tracking-[0.3em] uppercase text-primary flex items-center gap-2 hover:gap-4 transition-all">
-                    Learn More <ArrowRight className="w-4 h-4" />
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+    <section id="services" className="section-padding relative overflow-hidden bg-background">
+      {/* Background Ambience */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[1200px] bg-primary/5 blur-[180px] rounded-full" />
       </div>
 
-      {/* Background patterns */}
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-20">
-        <div className="absolute top-1/4 left-0 w-96 h-96 bg-primary/20 blur-[120px] rounded-full" />
-        <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-secondary/20 blur-[120px] rounded-full" />
+      <div className="container-custom relative z-10">
+        <div className="text-center mb-16 md:mb-24">
+          <div className="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-white/5 border border-white/10 mb-8 backdrop-blur-xl">
+            <Zap className="w-4 h-4 text-primary animate-pulse" />
+            <span className="text-[10px] font-black tracking-[0.4em] uppercase text-muted-foreground">Expertise Slider</span>
+          </div>
+          <h2 className="text-5xl md:text-8xl font-black tracking-tighter leading-none mb-8">
+            Quantum <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Capabilities</span>
+          </h2>
+        </div>
+
+        {/* 3D Slider Container */}
+        <div className="relative h-[480px] md:h-[550px] flex items-center justify-center overflow-visible perspective-2000">
+          <div className="relative w-full h-full max-w-2xl mx-auto flex items-center justify-center transform-style-3d">
+            {services.map((service, index) => (
+              <div
+                key={index}
+                ref={(el) => (cardsRef.current[index] = el)}
+                className="absolute w-full max-w-xl transform-gpu will-change-transform"
+              >
+                <div 
+                  className={`relative glass-card p-8 md:p-12 rounded-[3.5rem] border-white/10 overflow-hidden shadow-2xl bg-gradient-to-br ${service.color}/5 backdrop-blur-3xl transition-shadow duration-500`}
+                  style={{
+                    boxShadow: activeIndex === index ? `0 40px 100px -20px ${service.glow}` : 'none'
+                  }}
+                >
+                  {/* Background Image */}
+                  <div className="absolute inset-0 z-0 opacity-20 transition-opacity duration-700 group-hover:opacity-30">
+                    <img src={service.bg} alt="" className="w-full h-full object-cover grayscale brightness-50" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
+                  </div>
+
+                  {/* Decorative number */}
+                  <div className="absolute -top-10 -right-10 opacity-[0.05] select-none pointer-events-none z-0">
+                    <span className="text-[18rem] font-black leading-none">0{index + 1}</span>
+                  </div>
+
+                  <div className="relative z-10">
+                    <div className="flex flex-col items-center md:items-start text-center md:text-left">
+                      <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl md:rounded-3xl bg-background/50 backdrop-blur-xl flex items-center justify-center text-white border border-white/10 shadow-2xl mb-8">
+                        <div className="transform transition-transform duration-500 group-hover:scale-110">
+                          {service.icon}
+                        </div>
+                      </div>
+                      
+                      <div className="flex-1">
+                        <div className="flex items-center justify-center md:justify-start gap-3 mb-4">
+                          <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                          <span className="text-[9px] font-black tracking-[0.4em] uppercase text-muted-foreground">{service.tag}</span>
+                        </div>
+                        <h3 className="text-3xl md:text-4xl font-black mb-6 tracking-tighter leading-tight">{service.title}</h3>
+                        <p className="text-sm md:text-base text-muted-foreground leading-relaxed mb-8 max-w-md">
+                          {service.description}
+                        </p>
+                        <div className="flex flex-wrap gap-2 justify-center md:justify-start">
+                          {["Premium", "Scalable", "Intelligent"].map((t) => (
+                            <span key={t} className="px-3 py-1.5 rounded-full bg-white/5 border border-white/5 text-[8px] uppercase font-black tracking-widest text-primary/70">
+                              {t}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Navigation Controls */}
+          <div className="absolute bottom-0 left-0 w-full flex justify-center gap-12 items-center z-50 px-4">
+            <button 
+              onClick={prevSlide}
+              className="w-16 h-16 rounded-full glass-card border border-white/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground hover:scale-110 transition-all active:scale-95 group"
+            >
+              <ArrowLeft className="w-6 h-6 group-hover:-translate-x-1 transition-transform" />
+            </button>
+            <div className="flex gap-3">
+              {services.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setActiveIndex(i)}
+                  className={`w-3 h-3 rounded-full transition-all duration-500 ${
+                    activeIndex === i 
+                    ? "w-12 bg-primary shadow-[0_0_15px_rgba(34,211,238,0.5)]" 
+                    : "bg-white/20 hover:bg-white/40"
+                  }`}
+                />
+              ))}
+            </div>
+            <button 
+              onClick={nextSlide}
+              className="w-16 h-16 rounded-full glass-card border border-white/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground hover:scale-110 transition-all active:scale-95 group"
+            >
+              <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
+            </button>
+          </div>
+        </div>
       </div>
     </section>
   );

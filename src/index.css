@@ -88,7 +88,7 @@ All colors MUST be HSL.
     background: var(--gradient-hero);
   }
   
-  .gradient-quantum {
+  .gradient-quantum, .gradient-button {
     background: var(--gradient-quantum);
   }
   

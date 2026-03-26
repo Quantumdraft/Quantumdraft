@@ -15,7 +15,7 @@ const Navigation = () => {
       setScrollProgress(progress);
 
       // Simple intersection observer logic for active section
-      const sections = ["about", "services", "innovation", "contact"];
+      const sections = ["about", "services", "projects", "contact"];
       for (const section of sections) {
         const element = document.getElementById(section);
         if (element) {
@@ -43,14 +43,14 @@ const Navigation = () => {
   const navItems = [
     { label: "About", id: "about" },
     { label: "Services", id: "services" },
-    { label: "Innovation", id: "innovation" },
+    { label: "Projects", id: "projects" },
     { label: "Contact", id: "contact" },
   ];
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-background/60 backdrop-blur-2xl border-b border-white/5 transition-all duration-300">
       <div className="container-custom">
-        <div className="flex items-center justify-between h-20 md:h-24">
+        <div className="flex items-center justify-between h-16 md:h-20">
           <div 
             className="flex items-center space-x-3 cursor-pointer group"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
@@ -84,8 +84,9 @@ const Navigation = () => {
               </button>
             ))}
             <Button 
+              variant="gradient"
               onClick={() => scrollToSection("contact")} 
-              className="rounded-full bg-white/5 hover:bg-white/10 border border-white/10 px-8 h-12 font-bold tracking-widest uppercase text-xs glass-card-hover"
+              className="rounded-full px-8 h-12 font-bold tracking-widest uppercase text-xs shadow-quantum"
             >
               Get Started
             </Button>
