@@ -23,7 +23,7 @@ const services = [
     color: "from-blue-500 to-cyan-500",
     glow: "rgba(6, 182, 212, 0.4)",
     tag: "Protocol_01",
-    bg: "file:///C:/Users/RASHVANDH/.gemini/antigravity/brain/334b9bd3-2b7a-4063-8506-7242f11077c5/service_web_dev_bg_1774465639421.png"
+    bg: "/assets/services/service_web_dev_bg.png"
   },
   {
     icon: <Palette className="w-10 h-10" />,
@@ -32,7 +32,7 @@ const services = [
     color: "from-purple-500 to-violet-500",
     glow: "rgba(139, 92, 246, 0.4)",
     tag: "Protocol_02",
-    bg: "file:///C:/Users/RASHVANDH/.gemini/antigravity/brain/334b9bd3-2b7a-4063-8506-7242f11077c5/service_mobile_bg_1774465654928.png"
+    bg: "/assets/services/service_uiux_bg.png"
   },
   {
     icon: <ShoppingCart className="w-10 h-10" />,
@@ -41,7 +41,7 @@ const services = [
     color: "from-emerald-500 to-teal-500",
     glow: "rgba(16, 185, 129, 0.4)",
     tag: "Protocol_03",
-    bg: "file:///C:/Users/RASHVANDH/.gemini/antigravity/brain/334b9bd3-2b7a-4063-8506-7242f11077c5/service_branding_bg_1774465672027.png"
+    bg: "/assets/services/service_ecommerce_bg.png"
   },
   {
     icon: <Zap className="w-10 h-10" />,
@@ -50,7 +50,7 @@ const services = [
     color: "from-amber-500 to-orange-500",
     glow: "rgba(245, 158, 11, 0.4)",
     tag: "Protocol_04",
-    bg: "file:///C:/Users/RASHVANDH/.gemini/antigravity/brain/334b9bd3-2b7a-4063-8506-7242f11077c5/service_data_bg_1774465688943.png"
+    bg: "/assets/services/service_automation_bg.png"
   },
   {
     icon: <FlaskConical className="w-10 h-10" />,
@@ -59,7 +59,7 @@ const services = [
     color: "from-pink-500 to-rose-500",
     glow: "rgba(236, 72, 153, 0.4)",
     tag: "Protocol_05",
-    bg: "file:///C:/Users/RASHVANDH/.gemini/antigravity/brain/334b9bd3-2b7a-4063-8506-7242f11077c5/service_ai_bg_v2_1774465706894.png"
+    bg: "/assets/services/service_innovation_bg.png"
   }
 ];
 

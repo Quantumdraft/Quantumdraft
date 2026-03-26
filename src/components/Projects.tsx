@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import { 
-  Github, 
-  ExternalLink, 
-  Shield, 
-  Zap, 
-  BarChart3, 
-  Cpu, 
-  Globe, 
+import {
+  Github,
+  ExternalLink,
+  Shield,
+  Zap,
+  BarChart3,
+  Cpu,
+  Globe,
   Layers,
   ArrowLeft,
   ArrowRight,
@@ -24,7 +24,7 @@ const projects = [
     glow: "rgba(6, 182, 212, 0.4)",
     tags: ["React", "SEO", "Responsive Design"],
     link: "https://rackprcas.in",
-    bg: "file:///C:/Users/RASHVANDH/.gemini/antigravity/brain/334b9bd3-2b7a-4063-8506-7242f11077c5/project_ledger_bg_1774465739502.png"
+    bg: "/assets/projects/rackprcas_bg.png"
   },
   {
     title: "KK Exports",
@@ -35,7 +35,7 @@ const projects = [
     glow: "rgba(139, 92, 246, 0.4)",
     tags: ["E-Commerce", "Branding", "UI/UX"],
     link: "https://kkexps.com",
-    bg: "file:///C:/Users/RASHVANDH/.gemini/antigravity/brain/334b9bd3-2b7a-4063-8506-7242f11077c5/project_neural_bg_1774465755673.png"
+    bg: "/assets/projects/kkexports_bg.png"
   },
   {
     title: "RR Motors",
@@ -45,8 +45,8 @@ const projects = [
     color: "from-emerald-500 to-teal-600",
     glow: "rgba(16, 185, 129, 0.4)",
     tags: ["Interaction", "Inquiry System", "Mobile First"],
-    link: "https://rrmotors.in",
-    bg: "file:///C:/Users/RASHVANDH/.gemini/antigravity/brain/334b9bd3-2b7a-4063-8506-7242f11077c5/project_eco_bg_1774465777133.png"
+    link: "motors.org.in",
+    bg: "/assets/projects/rrmotors_bg.png"
   }
 ];
 
@@ -60,14 +60,14 @@ const Projects = () => {
 
   useEffect(() => {
     const cards = cardsRef.current;
-    
+
     cards.forEach((card, index) => {
       if (!card) return;
 
       const offset = index - activeIndex;
       const absOffset = Math.abs(offset);
-      
-      const xTranslate = offset * 110; 
+
+      const xTranslate = offset * 110;
       const zTranslate = -absOffset * 250;
       const rotateY = offset * -20;
       const opacity = Math.max(0, 1 - absOffset * 0.4);
@@ -110,7 +110,7 @@ const Projects = () => {
                 ref={(el) => (cardsRef.current[index] = el)}
                 className="absolute w-full max-w-2xl transform-gpu will-change-transform"
               >
-                <div 
+                <div
                   className={`relative glass-card p-8 md:p-12 rounded-[3.5rem] border-white/10 overflow-hidden shadow-2xl bg-gradient-to-br ${project.color}/5 backdrop-blur-3xl`}
                   style={{
                     boxShadow: activeIndex === index ? `0 40px 100px -20px ${project.glow}` : 'none'
@@ -139,11 +139,11 @@ const Projects = () => {
                           <div className="w-1.5 h-1.5 rounded-full bg-primary" />
                           <span className="text-[9px] font-black tracking-[0.4em] uppercase text-muted-foreground">{project.category}</span>
                         </div>
-                        
+
                         <h3 className="text-3xl md:text-5xl font-black mb-6 tracking-tighter leading-tight">
                           {project.title}
                         </h3>
-                        
+
                         <p className="text-sm md:text-base text-muted-foreground leading-relaxed mb-8 max-w-xl">
                           {project.description}
                         </p>
@@ -157,7 +157,7 @@ const Projects = () => {
                         </div>
 
                         <div className="flex gap-4 justify-center lg:justify-start">
-                          <button 
+                          <button
                             onClick={() => window.open(project.link, "_blank")}
                             className="flex items-center gap-3 px-6 py-3 bg-primary text-primary-foreground rounded-full font-black text-[10px] tracking-widest uppercase hover:glow-primary transition-all"
                           >
@@ -177,7 +177,7 @@ const Projects = () => {
 
           {/* Navigation Controls */}
           <div className="absolute bottom-[-20px] left-0 w-full flex justify-center gap-12 items-center z-50">
-            <button 
+            <button
               onClick={prevSlide}
               className="w-16 h-16 rounded-full glass-card border border-white/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground hover:scale-110 transition-all group"
             >
@@ -188,15 +188,14 @@ const Projects = () => {
                 <button
                   key={i}
                   onClick={() => setActiveIndex(i)}
-                  className={`w-3 h-3 rounded-full transition-all duration-500 ${
-                    activeIndex === i 
-                    ? "w-12 bg-primary shadow-[0_0_15px_rgba(34,211,238,0.5)]" 
-                    : "bg-white/20 hover:bg-white/40"
-                  }`}
+                  className={`w-3 h-3 rounded-full transition-all duration-500 ${activeIndex === i
+                      ? "w-12 bg-primary shadow-[0_0_15px_rgba(34,211,238,0.5)]"
+                      : "bg-white/20 hover:bg-white/40"
+                    }`}
                 />
               ))}
             </div>
-            <button 
+            <button
               onClick={nextSlide}
               className="w-16 h-16 rounded-full glass-card border border-white/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground hover:scale-110 transition-all group"
             >
