@@ -1,129 +1,259 @@
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown, Cpu, Globe, Database, Shield, Zap, Sparkles, Code2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import logo from "@/assets/quantum-draft-logo.png";
+import logoImg from "../assets/quantum-draft-logo.png";
+import { useNavigate, useLocation } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Navigation = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const [activeSection, setActiveSection] = useState<string>("");
+  const [scrolled, setScrolled] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = (window.scrollY / totalScroll) * 100;
-      setScrollProgress(progress);
-
-      // Simple intersection observer logic for active section
-      const sections = ["about", "services", "projects", "contact"];
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top <= 100 && rect.bottom >= 100) {
-            setActiveSection(section);
-            break;
-          }
-        }
+      if (window.scrollY > 20) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
       }
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-      setIsOpen(false);
+    setActiveDropdown(null);
+    setIsOpen(false);
+    if (location.pathname !== "/") {
+      navigate(`/#${id}`);
+    } else {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
     }
   };
 
-  const navItems = [
-    { label: "About", id: "about" },
-    { label: "Services", id: "services" },
-    { label: "Projects", id: "projects" },
-    { label: "Contact", id: "contact" },
+  const servicesMenu = [
+    { name: "AI Solutions", desc: "Custom LLMs, neural networks, predictive models", icon: Cpu, id: "services" },
+    { name: "Web Systems", desc: "NextJS, React, enterprise cloud portals", icon: Code2, id: "services" },
+    { name: "Cloud & Security", desc: "AWS, Kubernetes, zero-trust architectures", icon: Shield, id: "services" },
+    { name: "Automations", desc: "High-throughput API & workflow integrations", icon: Zap, id: "services" },
+  ];
+
+  const companyMenu = [
+    { name: "Who We Are", desc: "Our history, mission, vision and values", icon: Sparkles, id: "about" },
+    { name: "Why Us", desc: "What sets our technology engineering apart", icon: Globe, id: "innovation" },
+    { name: "Our Process", desc: "Discovery, development, deployment cycle", icon: Database, id: "process" },
   ];
 
   return (
-    <nav className="fixed top-0 w-full z-50 bg-background/60 backdrop-blur-2xl border-b border-white/5 transition-all duration-300">
-      <div className="container-custom">
-        <div className="flex items-center justify-between h-16 md:h-20">
-          <div 
-            className="flex items-center space-x-3 cursor-pointer group"
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+    <nav
+      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+        scrolled
+          ? "bg-[#050507]/80 backdrop-blur-xl border-b border-white/[0.06] py-4"
+          : "bg-transparent py-6"
+      }`}
+    >
+      <div className="container-custom px-6 flex items-center justify-between">
+        {/* Brand Logo */}
+        <div
+          onClick={() => {
+            if (location.pathname !== "/") {
+              navigate("/");
+            } else {
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }
+          }}
+          className="flex items-center space-x-3 cursor-pointer group"
+        >
+          <img src={logoImg} alt="QuantumDraft Logo" className="h-8 w-auto object-contain group-hover:scale-105 transition-transform" />
+          <span className="text-xl font-bold tracking-tight font-sans text-white group-hover:text-blue-400 transition-colors">
+            QuantumDraft
+          </span>
+        </div>
+
+        {/* Desktop Links */}
+        <div className="hidden md:flex items-center space-x-8">
+          {/* Services Dropdown */}
+          <div
+            className="relative"
+            onMouseEnter={() => setActiveDropdown("services")}
+            onMouseLeave={() => setActiveDropdown(null)}
           >
-            <div className="relative">
-              <img src={logo} alt="Quantum Draft Logo" className="w-12 h-12 md:w-16 md:h-16 object-contain group-hover:scale-110 transition-transform duration-500" />
-              <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-xl md:text-2xl font-black tracking-tighter font-['Space_Grotesk'] leading-none">
-                QUANTUM<span className="text-primary text-glow-primary">DRAFT</span>
-              </span>
-              <span className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground font-bold mt-1">Intelligence Ecosystem</span>
-            </div>
+            <button className="flex items-center gap-1.5 text-sm font-medium text-white/70 hover:text-white transition-colors py-2">
+              Services <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${activeDropdown === "services" ? "rotate-180 text-blue-400" : ""}`} />
+            </button>
+            <AnimatePresence>
+              {activeDropdown === "services" && (
+                <motion.div
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 15 }}
+                  transition={{ duration: 0.2 }}
+                  className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-[480px] p-6 glass-panel"
+                >
+                  <div className="grid grid-cols-2 gap-4">
+                    {servicesMenu.map((item) => (
+                      <div
+                        key={item.name}
+                        onClick={() => scrollToSection(item.id)}
+                        className="flex items-start gap-3 p-3 rounded-xl hover:bg-white/[0.03] transition-colors cursor-pointer group"
+                      >
+                        <div className="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400 shrink-0 group-hover:bg-blue-500 group-hover:text-white transition-colors">
+                          <item.icon className="w-5 h-5" />
+                        </div>
+                        <div>
+                          <h4 className="text-sm font-semibold text-white group-hover:text-blue-400 transition-colors">
+                            {item.name}
+                          </h4>
+                          <p className="text-xs text-white/50 leading-normal mt-1">
+                            {item.desc}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-10">
-            {navItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                className={`relative px-2 py-1 text-sm font-bold tracking-widest uppercase transition-all duration-300 hover:text-primary ${
-                  activeSection === item.id ? "text-primary" : "text-muted-foreground"
-                }`}
-              >
-                {item.label}
-                {activeSection === item.id && (
-                  <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-gradient-to-r from-primary to-transparent animate-pulse" />
-                )}
-              </button>
-            ))}
-            <Button 
-              variant="gradient"
-              onClick={() => scrollToSection("contact")} 
-              className="rounded-full px-8 h-12 font-bold tracking-widest uppercase text-xs shadow-quantum"
-            >
-              Get Started
-            </Button>
+          {/* Company Dropdown */}
+          <div
+            className="relative"
+            onMouseEnter={() => setActiveDropdown("company")}
+            onMouseLeave={() => setActiveDropdown(null)}
+          >
+            <button className="flex items-center gap-1.5 text-sm font-medium text-white/70 hover:text-white transition-colors py-2">
+              Company <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${activeDropdown === "company" ? "rotate-180 text-blue-400" : ""}`} />
+            </button>
+            <AnimatePresence>
+              {activeDropdown === "company" && (
+                <motion.div
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 15 }}
+                  transition={{ duration: 0.2 }}
+                  className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-[320px] p-4 glass-panel"
+                >
+                  <div className="flex flex-col gap-2">
+                    {companyMenu.map((item) => (
+                      <div
+                        key={item.name}
+                        onClick={() => scrollToSection(item.id)}
+                        className="flex items-center gap-3.5 p-3 rounded-lg hover:bg-white/[0.03] transition-colors cursor-pointer group"
+                      >
+                        <div className="w-8 h-8 rounded bg-blue-500/10 flex items-center justify-center text-blue-400 group-hover:bg-blue-500 group-hover:text-white transition-colors">
+                          <item.icon className="w-4 h-4" />
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="text-sm font-semibold text-white group-hover:text-blue-400 transition-colors">
+                            {item.name}
+                          </h4>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden text-foreground p-2 rounded-full bg-white/5 border border-white/10"
-          >
-            {isOpen ? <X size={20} /> : <Menu size={20} />}
+          {/* Additional Links */}
+          <button onClick={() => scrollToSection("projects")} className="text-sm font-medium text-white/70 hover:text-white transition-colors">
+            Portfolio
+          </button>
+          <button onClick={() => scrollToSection("faq")} className="text-sm font-medium text-white/70 hover:text-white transition-colors">
+            FAQ
+          </button>
+          <button onClick={() => scrollToSection("contact")} className="text-sm font-medium text-white/70 hover:text-white transition-colors">
+            Contact
           </button>
         </div>
 
-        {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="md:hidden py-8 space-y-6 animate-fade-in border-t border-white/5 bg-background/95 backdrop-blur-3xl px-4 rounded-b-3xl shadow-2xl">
-            {navItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                className={`block w-full text-center text-lg font-bold tracking-widest uppercase py-2 transition-all ${
-                  activeSection === item.id ? "text-primary scale-110" : "text-muted-foreground"
-                }`}
-              >
-                {item.label}
-              </button>
-            ))}
-            <Button onClick={() => scrollToSection("contact")} className="w-full h-14 rounded-2xl bg-primary text-primary-foreground font-bold text-lg uppercase tracking-widest">
-              Get Started
-            </Button>
-          </div>
-        )}
+        {/* Desktop CTA */}
+        <div className="hidden md:flex items-center space-x-4">
+          <Button
+            onClick={() => scrollToSection("contact")}
+            className="rounded-full bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm px-6 h-11 transition-all"
+          >
+            Start Your Project
+          </Button>
+        </div>
+
+        {/* Mobile Menu Button */}
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="md:hidden text-white/80 hover:text-white p-2 rounded-lg bg-white/5 border border-white/5"
+        >
+          {isOpen ? <X size={20} /> : <Menu size={20} />}
+        </button>
       </div>
 
-      {/* Scroll Progress Bar */}
-      <div className="absolute bottom-0 left-0 h-[3px] bg-gradient-to-r from-primary via-secondary to-accent transition-all duration-100 ease-out" style={{ width: `${scrollProgress}%` }} />
+      {/* Mobile Menu Drawer */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden border-t border-white/[0.06] bg-[#050507]/95 backdrop-blur-2xl px-6 py-8 overflow-hidden shadow-2xl"
+          >
+            <div className="flex flex-col gap-6 font-sans">
+              <div className="border-b border-white/[0.05] pb-4">
+                <span className="text-xs font-semibold uppercase tracking-wider text-white/40 block mb-3">Services</span>
+                <div className="grid grid-cols-2 gap-4">
+                  {servicesMenu.map((item) => (
+                    <button
+                      key={item.name}
+                      onClick={() => scrollToSection(item.id)}
+                      className="text-left text-sm font-medium text-white/80 hover:text-blue-400 py-1"
+                    >
+                      {item.name}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="border-b border-white/[0.05] pb-4">
+                <span className="text-xs font-semibold uppercase tracking-wider text-white/40 block mb-3">Company</span>
+                <div className="flex flex-col gap-2">
+                  {companyMenu.map((item) => (
+                    <button
+                      key={item.name}
+                      onClick={() => scrollToSection(item.id)}
+                      className="text-left text-sm font-medium text-white/80 hover:text-blue-400 py-1"
+                    >
+                      {item.name}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <button onClick={() => scrollToSection("projects")} className="text-left text-sm font-medium text-white/80 hover:text-blue-400 py-1">
+                Portfolio
+              </button>
+              <button onClick={() => scrollToSection("faq")} className="text-left text-sm font-medium text-white/80 hover:text-blue-400 py-1">
+                FAQ
+              </button>
+              <button onClick={() => scrollToSection("contact")} className="text-left text-sm font-medium text-white/80 hover:text-blue-400 py-1">
+                Contact
+              </button>
+
+              <Button
+                onClick={() => scrollToSection("contact")}
+                className="w-full rounded-full bg-blue-600 hover:bg-blue-700 text-white font-medium h-12 mt-4"
+              >
+                Start Your Project
+              </Button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };

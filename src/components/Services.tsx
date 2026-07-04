@@ -1,217 +1,237 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { 
-  Code, 
+  Cpu, 
+  Code2, 
   Smartphone, 
+  Cloud, 
   Palette, 
-  ShoppingCart, 
-  GraduationCap, 
+  Zap, 
+  TrendingUp, 
   BarChart3, 
-  FlaskConical, 
+  Shield, 
+  Presentation,
   ArrowLeft,
   ArrowRight,
-  Zap,
-  Cpu,
-  Globe
+  ArrowUpRight
 } from "lucide-react";
-import { gsap } from "gsap";
+import { motion } from "framer-motion";
 
 const services = [
   {
-    icon: <Code className="w-10 h-10" />,
-    title: "Website Development",
-    description: "High-performance websites designed for scalability and growth. Includes custom web apps, SEO-ready builds, and CMS integration.",
-    color: "from-blue-500 to-cyan-500",
-    glow: "rgba(6, 182, 212, 0.4)",
-    tag: "Protocol_01",
-    bg: "/assets/services/service_web_dev_bg.png"
+    icon: Cpu,
+    title: "AI Solutions",
+    desc: "Custom LLMs, vector database search integrations, neural networks, predictive learning, and natural language algorithms.",
+    badge: "Advanced"
   },
   {
-    icon: <Palette className="w-10 h-10" />,
-    title: "UI/UX, Branding & Design",
-    description: "Design systems that enhance user experience and brand identity through research, prototyping, and brand strategy.",
-    color: "from-purple-500 to-violet-500",
-    glow: "rgba(139, 92, 246, 0.4)",
-    tag: "Protocol_02",
-    bg: "/assets/services/service_uiux_bg.png"
+    icon: Code2,
+    title: "Web Development",
+    desc: "High-performance, secure single-page applications, custom CMS modules, and web portals built with React and Next.js.",
+    badge: "Core"
   },
   {
-    icon: <ShoppingCart className="w-10 h-10" />,
-    title: "E-Commerce Solutions",
-    description: "Conversion-focused online stores with seamless payment integration, inventory management, and performance optimization.",
-    color: "from-emerald-500 to-teal-500",
-    glow: "rgba(16, 185, 129, 0.4)",
-    tag: "Protocol_03",
-    bg: "/assets/services/service_ecommerce_bg.png"
+    icon: Smartphone,
+    title: "Mobile Apps",
+    desc: "Multi-platform iOS and Android applications utilizing Flutter and React Native for beautiful native execution.",
+    badge: "Hybrid"
   },
   {
-    icon: <Zap className="w-10 h-10" />,
-    title: "Automation & Integration",
-    description: "Smart systems connecting tools and workflows via API integrations, CRM, chatbot automation, and no-code systems.",
-    color: "from-amber-500 to-orange-500",
-    glow: "rgba(245, 158, 11, 0.4)",
-    tag: "Protocol_04",
-    bg: "/assets/services/service_automation_bg.png"
+    icon: Cloud,
+    title: "Cloud Services",
+    desc: "Robust deployment infrastructure, serverless architectures, Kubernetes management, and continuous CI/CD pipelines.",
+    badge: "Scale"
   },
   {
-    icon: <FlaskConical className="w-10 h-10" />,
-    title: "Innovation Lab",
-    description: "Experimental development of next-generation AI tools, autonomous agents, and custom AI systems.",
-    color: "from-pink-500 to-rose-500",
-    glow: "rgba(236, 72, 153, 0.4)",
-    tag: "Protocol_05",
-    bg: "/assets/services/service_innovation_bg.png"
+    icon: Palette,
+    title: "UI/UX Design",
+    desc: "Immersive user research, interactive wireframing, high-end prototyping, and scalable design systems for SaaS.",
+    badge: "Creative"
+  },
+  {
+    icon: Zap,
+    title: "Automation & API",
+    desc: "Orchestrating custom API middleware pipelines, chatbot agents, and automated no-code tool synchronizations.",
+    badge: "Efficiency"
+  },
+  {
+    icon: TrendingUp,
+    title: "Digital Marketing",
+    desc: "Data-led user acquisition campaigns, SEO performance audits, growth strategies, and search engine visibility optimizations.",
+    badge: "Growth"
+  },
+  {
+    icon: BarChart3,
+    title: "Data Analytics",
+    desc: "Deep reporting telemetry, clickstream user tracking pipelines, behavioral analytics engines, and data pipeline warehousing.",
+    badge: "Telemetry"
+  },
+  {
+    icon: Shield,
+    title: "Cyber Security",
+    desc: "Zero-trust network frameworks, static audit checks, automated server hardening, TLS and OAuth2 authentication setups.",
+    badge: "SecOps"
+  },
+  {
+    icon: Presentation,
+    title: "Business Intelligence",
+    desc: "Constructing interactive dashboard analytics pipelines, real-time KPI aggregations, and business process modeling.",
+    badge: "Strategy"
   }
 ];
 
 const Services = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const sliderRef = useRef<HTMLDivElement>(null);
-  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const [windowWidth, setWindowWidth] = useState(
+    typeof window !== "undefined" ? window.innerWidth : 1200
+  );
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const getVisibleCards = () => {
+    if (windowWidth >= 1024) return 3;
+    if (windowWidth >= 768) return 2;
+    return 1;
+  };
+
+  const visibleCards = getVisibleCards();
+  const maxIndex = Math.max(0, services.length - visibleCards);
 
   const nextSlide = () => {
-    setActiveIndex((prev) => (prev + 1) % services.length);
+    setActiveIndex((prev) => Math.min(prev + 1, maxIndex));
   };
 
   const prevSlide = () => {
-    setActiveIndex((prev) => (prev - 1 + services.length) % services.length);
+    setActiveIndex((prev) => Math.max(prev - 1, 0));
   };
 
-  useEffect(() => {
-    const cards = cardsRef.current;
-    
-    cards.forEach((card, index) => {
-      if (!card) return;
-
-      const offset = index - activeIndex;
-      const absOffset = Math.abs(offset);
-      
-      // Calculate 3D position
-      const xTranslate = offset * 120; // Spread cards horizontally
-      const zTranslate = -absOffset * 200; // Push further cards back
-      const rotateY = offset * -25; // Rotate cards to face center
-      const opacity = Math.max(0, 1 - absOffset * 0.4);
-      const scale = 1 - absOffset * 0.2;
-
-      gsap.to(card, {
-        x: `${xTranslate}%`,
-        z: zTranslate,
-        rotateY: rotateY,
-        opacity: opacity,
-        scale: scale,
-        duration: 0.8,
-        ease: "power3.out",
-        visibility: opacity <= 0 ? "hidden" : "visible",
-        pointerEvents: offset === 0 ? "auto" : "none",
-        zIndex: 100 - absOffset,
-      });
-    });
-  }, [activeIndex]);
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
-    <section id="services" className="section-padding relative overflow-hidden bg-background">
-      {/* Background Ambience */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[1200px] bg-primary/5 blur-[180px] rounded-full" />
-      </div>
+    <section id="services" className="section-padding bg-[#050505] relative overflow-hidden border-t border-b border-white/[0.03] mesh-gradient-1">
+      {/* Background glow circle */}
+      <div className="absolute top-1/4 right-1/4 w-[600px] h-[600px] bg-blue-500/5 blur-[180px] rounded-full pointer-events-none" />
 
       <div className="container-custom relative z-10">
-        <div className="text-center mb-16 md:mb-24">
-          <div className="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-white/5 border border-white/10 mb-8 backdrop-blur-xl">
-            <Zap className="w-4 h-4 text-primary animate-pulse" />
-            <span className="text-[10px] font-black tracking-[0.4em] uppercase text-muted-foreground">Expertise Slider</span>
-          </div>
-          <h2 className="text-5xl md:text-8xl font-black tracking-tighter leading-none mb-8">
-            Quantum <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Capabilities</span>
-          </h2>
-        </div>
-
-        {/* 3D Slider Container */}
-        <div className="relative h-[480px] md:h-[550px] flex items-center justify-center overflow-visible perspective-2000">
-          <div className="relative w-full h-full max-w-2xl mx-auto flex items-center justify-center transform-style-3d">
-            {services.map((service, index) => (
-              <div
-                key={index}
-                ref={(el) => (cardsRef.current[index] = el)}
-                className="absolute w-full max-w-xl transform-gpu will-change-transform"
-              >
-                <div 
-                  className={`relative glass-card p-8 md:p-12 rounded-[3.5rem] border-white/10 overflow-hidden shadow-2xl bg-gradient-to-br ${service.color}/5 backdrop-blur-3xl transition-shadow duration-500`}
-                  style={{
-                    boxShadow: activeIndex === index ? `0 40px 100px -20px ${service.glow}` : 'none'
-                  }}
-                >
-                  {/* Background Image */}
-                  <div className="absolute inset-0 z-0 opacity-20 transition-opacity duration-700 group-hover:opacity-30">
-                    <img src={service.bg} alt="" className="w-full h-full object-cover grayscale brightness-50" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
-                  </div>
-
-                  {/* Decorative number */}
-                  <div className="absolute -top-10 -right-10 opacity-[0.05] select-none pointer-events-none z-0">
-                    <span className="text-[18rem] font-black leading-none">0{index + 1}</span>
-                  </div>
-
-                  <div className="relative z-10">
-                    <div className="flex flex-col items-center md:items-start text-center md:text-left">
-                      <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl md:rounded-3xl bg-background/50 backdrop-blur-xl flex items-center justify-center text-white border border-white/10 shadow-2xl mb-8">
-                        <div className="transform transition-transform duration-500 group-hover:scale-110">
-                          {service.icon}
-                        </div>
-                      </div>
-                      
-                      <div className="flex-1">
-                        <div className="flex items-center justify-center md:justify-start gap-3 mb-4">
-                          <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                          <span className="text-[9px] font-black tracking-[0.4em] uppercase text-muted-foreground">{service.tag}</span>
-                        </div>
-                        <h3 className="text-3xl md:text-4xl font-black mb-6 tracking-tighter leading-tight">{service.title}</h3>
-                        <p className="text-sm md:text-base text-muted-foreground leading-relaxed mb-8 max-w-md">
-                          {service.description}
-                        </p>
-                        <div className="flex flex-wrap gap-2 justify-center md:justify-start">
-                          {["Premium", "Scalable", "Intelligent"].map((t) => (
-                            <span key={t} className="px-3 py-1.5 rounded-full bg-white/5 border border-white/5 text-[8px] uppercase font-black tracking-widest text-primary/70">
-                              {t}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
+        
+        {/* Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20">
+          <div className="text-left max-w-xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 mb-4">
+              <span className="text-xs font-semibold uppercase text-blue-400 font-sans tracking-wide">Capabilities</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight font-sans">
+              Full-Spectrum <span className="gradient-text-blue">Technology Engineering</span>
+            </h2>
           </div>
 
           {/* Navigation Controls */}
-          <div className="absolute bottom-0 left-0 w-full flex justify-center gap-12 items-center z-50 px-4">
+          <div className="flex gap-4">
             <button 
               onClick={prevSlide}
-              className="w-16 h-16 rounded-full glass-card border border-white/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground hover:scale-110 transition-all active:scale-95 group"
+              disabled={activeIndex === 0}
+              className={`w-12 h-12 rounded-full border flex items-center justify-center transition-all ${
+                activeIndex === 0 
+                  ? "border-white/10 text-white/20 cursor-not-allowed" 
+                  : "border-white/20 hover:border-white text-white hover:bg-white/5 active:scale-95"
+              }`}
             >
-              <ArrowLeft className="w-6 h-6 group-hover:-translate-x-1 transition-transform" />
+              <ArrowLeft className="w-4 h-4" />
             </button>
-            <div className="flex gap-3">
-              {services.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setActiveIndex(i)}
-                  className={`w-3 h-3 rounded-full transition-all duration-500 ${
-                    activeIndex === i 
-                    ? "w-12 bg-primary shadow-[0_0_15px_rgba(34,211,238,0.5)]" 
-                    : "bg-white/20 hover:bg-white/40"
-                  }`}
-                />
-              ))}
-            </div>
             <button 
               onClick={nextSlide}
-              className="w-16 h-16 rounded-full glass-card border border-white/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground hover:scale-110 transition-all active:scale-95 group"
+              disabled={activeIndex === maxIndex}
+              className={`w-12 h-12 rounded-full border flex items-center justify-center transition-all ${
+                activeIndex === maxIndex 
+                  ? "border-white/10 text-white/20 cursor-not-allowed" 
+                  : "border-white/20 hover:border-white text-white hover:bg-white/5 active:scale-95"
+              }`}
             >
-              <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-4 h-4" />
             </button>
           </div>
         </div>
+
+        {/* Flat Slider Container */}
+        <div className="relative w-full overflow-hidden">
+          <div 
+            className="flex transition-transform duration-500 ease-out -mx-3"
+            style={{ transform: `translateX(-${activeIndex * (100 / visibleCards)}%)` }}
+          >
+            {services.map((service) => {
+              const Icon = service.icon;
+              return (
+                <div 
+                  key={service.title} 
+                  className="w-full md:w-1/2 lg:w-1/3 shrink-0 px-3"
+                >
+                  <motion.div
+                    whileHover={{ 
+                      y: -8, 
+                      boxShadow: "0 24px 60px rgba(59, 130, 246, 0.08)",
+                      borderColor: "rgba(59, 130, 246, 0.2)"
+                    }}
+                    onClick={() => scrollToSection("contact")}
+                    className="group relative p-8 rounded-2xl bg-white/[0.01] border border-white/[0.06] backdrop-blur-xl transition-all duration-300 flex flex-col justify-between min-h-[320px] cursor-pointer text-left"
+                  >
+                    {/* Hover Gradient Overlay */}
+                    <div className="absolute inset-0 -z-10 rounded-2xl bg-gradient-to-br from-blue-500/5 to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    
+                    <div>
+                      {/* Card Header */}
+                      <div className="flex justify-between items-start mb-8">
+                        <div className="w-12 h-12 rounded-xl bg-blue-500/5 flex items-center justify-center text-blue-400 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300 shadow-inner">
+                          <Icon className="w-5 h-5 transition-transform duration-500 group-hover:rotate-6" />
+                        </div>
+                        <span className="px-2.5 py-1 rounded-full bg-white/[0.03] border border-white/[0.05] text-[9px] font-bold text-white/50 tracking-wider uppercase group-hover:text-blue-300 group-hover:border-blue-500/20 transition-colors font-mono">
+                          {service.badge}
+                        </span>
+                      </div>
+
+                      {/* Content */}
+                      <h3 className="text-lg font-bold text-white font-sans uppercase tracking-wide group-hover:text-blue-300 transition-colors mb-3">
+                        {service.title}
+                      </h3>
+                      <p className="text-xs md:text-sm text-white/50 leading-relaxed font-sans font-normal">
+                        {service.desc}
+                      </p>
+                    </div>
+
+                    {/* Footer link */}
+                    <div className="flex items-center gap-1.5 text-xs font-semibold text-white/60 group-hover:text-blue-400 pt-6 mt-6 border-t border-white/[0.03] transition-colors">
+                      <span>Enquire Capabilities</span>
+                      <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    </div>
+                  </motion.div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Progress Bar / Indicator Dots */}
+        <div className="flex justify-center gap-2 mt-12">
+          {Array.from({ length: maxIndex + 1 }).map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setActiveIndex(i)}
+              className={`h-1.5 transition-all duration-500 rounded-full ${
+                activeIndex === i 
+                  ? "w-8 bg-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.8)]" 
+                  : "w-2.5 bg-white/20 hover:bg-white/40"
+              }`}
+            />
+          ))}
+        </div>
+
       </div>
     </section>
   );

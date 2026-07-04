@@ -2,60 +2,36 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
-
 @layer base {
   :root {
-    /* Foundations - Deep Space Palette */
-    --background: 230 25% 3%;
-    --surface: 230 25% 6%;
-    --card: 230 20% 10%;
-    --border: 230 15% 15%;
+    /* Foundations - Premium Dark SaaS Theme */
+    --background: 240 10% 2%;        /* Deep Black #050505 */
+    --surface: 240 10% 4%;           /* Slate Black #0A0A0C */
+    --card: 240 8% 6%;               /* Glassmorphic Base Card */
+    --border: 240 6% 12%;            /* Slate Border */
 
-    /* Quantum Brand - Higher Saturation */
-    --primary: 190 100% 50%;     /* Electric Cyan */
-    --secondary: 260 80% 60%;    /* Radiant Violet */
-    --accent: 150 100% 50%;      /* Hyper Green */
+    /* Electric Blue & Cyan Accents */
+    --primary: 217 91% 60%;          /* Electric Blue */
+    --secondary: 180 100% 50%;       /* Cyan */
+    --accent: 250 85% 65%;           /* Violet Accent */
 
-    /* Text - High Contrast */
-    --foreground: 210 20% 98%;
-    --muted-foreground: 215 15% 65%;
+    /* Typography */
+    --foreground: 0 0% 98%;
+    --muted-foreground: 240 5% 64%;
 
-    /* Interactive States */
-    --primary-glow: 190 100% 50% / 0.4;
-    --secondary-glow: 260 80% 60% / 0.3;
-
-    /* Legacy shadcn/ui tokens */
-    --card-foreground: 210 20% 98%;
-    --popover: 230 25% 6%;
-    --popover-foreground: 210 20% 98%;
-    --primary-foreground: 230 25% 3%;
-    --secondary-foreground: 210 20% 98%;
-    --muted: 230 25% 8%;
-    --accent-foreground: 230 25% 3%;
+    /* Radix / Shadcn Compatibility */
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 4%;
+    --popover-foreground: 0 0% 98%;
+    --primary-foreground: 0 0% 100%;
+    --secondary-foreground: 240 10% 4%;
+    --muted: 240 5% 10%;
+    --accent-foreground: 0 0% 100%;
     --destructive: 0 85% 60%;
-    --destructive-foreground: 210 20% 98%;
-    --input: 230 15% 15%;
-    --ring: 190 100% 50%;
-
-    /* Radius */
+    --destructive-foreground: 0 0% 98%;
+    --input: 240 6% 12%;
+    --ring: 217 91% 60%;
     --radius: 16px;
-
-    /* Enhanced Gradients */
-    --gradient-hero: 
-      radial-gradient(circle at 50% -20%, hsl(var(--primary) / 0.15), transparent 70%),
-      radial-gradient(circle at 0% 100%, hsl(var(--secondary) / 0.1), transparent 50%),
-      linear-gradient(180deg, hsl(230 25% 4%), hsl(230 25% 2%));
-
-    --gradient-quantum: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--secondary)));
-    
-    --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
-
-    /* Polished Shadows */
-    --shadow-quantum: 0 0 30px -5px hsl(var(--primary) / 0.3);
-    --shadow-inner: inset 0 1px 1px 0 rgba(255,255,255,0.05);
   }
 }
 
@@ -65,62 +41,84 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground font-['Inter',sans-serif] antialiased;
+    @apply bg-background text-foreground font-sans antialiased overflow-x-hidden;
+    background-color: #050505;
     scroll-behavior: smooth;
   }
   
   h1, h2, h3, h4, h5, h6 {
-    @apply font-['Space_Grotesk',sans-serif] font-semibold;
+    @apply font-semibold tracking-tight;
   }
 }
 
 @layer components {
-  .glass-card {
-    @apply bg-card/40 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl;
-    box-shadow: var(--shadow-inner);
+  /* Premium Glassmorphic Panels */
+  .glass-panel {
+    @apply bg-white/[0.01] backdrop-blur-xl border border-white/[0.05] shadow-[0_24px_80px_rgba(0,0,0,0.8)] rounded-2xl transition-all duration-300;
   }
 
-  .glass-card-hover {
-    @apply hover:bg-card/60 transition-all duration-500 hover:border-white/20 hover:shadow-quantum;
-  }
-  
-  .gradient-hero {
-    background: var(--gradient-hero);
-  }
-  
-  .gradient-quantum, .gradient-button {
-    background: var(--gradient-quantum);
-  }
-  
-  .text-glow-primary {
-    text-shadow: 0 0 20px hsl(var(--primary) / 0.5);
+  .glass-panel-hover {
+    @apply hover:bg-white/[0.02] hover:border-white/[0.08] hover:shadow-[0_24px_80px_rgba(59,130,246,0.1)];
   }
 
-  .quantum-border {
-    @apply relative overflow-hidden rounded-2xl;
-    &::before {
-      content: '';
-      @apply absolute inset-0 -z-10 bg-gradient-to-r from-primary/50 to-secondary/50 p-[1px] mask-gradient;
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-    }
+  .gradient-text-blue {
+    @apply bg-gradient-to-r from-blue-400 via-cyan-400 to-indigo-500 bg-clip-text text-transparent;
   }
-  
+
+  .gradient-border-hover {
+    @apply relative overflow-hidden;
+  }
+
+  .gradient-border-hover::before {
+    content: '';
+    @apply absolute inset-0 -z-10 bg-gradient-to-r from-blue-500 to-cyan-500 p-[1px] rounded-2xl opacity-0 transition-opacity duration-500;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+
+  .gradient-border-hover:hover::before {
+    @apply opacity-100;
+  }
+
+  /* Spacious Layout Section Padding */
   .section-padding {
-    @apply py-20 px-4 md:py-32 md:px-6 lg:px-8;
+    @apply py-24 px-6 md:py-36 md:px-12 lg:px-24;
   }
   
   .container-custom {
-    @apply max-w-7xl mx-auto;
+    @apply max-w-7xl mx-auto w-full;
   }
-  
-  .service-card {
-    @apply opacity-100;
+
+  /* Mesh Gradients */
+  .mesh-gradient-1 {
+    background-image: 
+      radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.15) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, rgba(6, 182, 212, 0.1) 0px, transparent 50%);
   }
-  
-  .service-card:not(:first-child) {
-    @apply opacity-0;
+
+  .mesh-gradient-2 {
+    background-image: 
+      radial-gradient(at 50% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 60%),
+      radial-gradient(at 100% 50%, rgba(147, 51, 234, 0.08) 0px, transparent 50%);
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #050505;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #1a1a1f;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #2a2a2f;
   }
 }
