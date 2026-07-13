@@ -9,6 +9,7 @@ export default defineConfig(({ mode }) => ({
     port: 8080,
     allowedHosts: [
       "quantumdraft-yz2c.onrender.com",
+      "quantumdraft.in",
     ],
   },
   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
