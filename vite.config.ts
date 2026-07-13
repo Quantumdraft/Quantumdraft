@@ -12,6 +12,14 @@ export default defineConfig(({ mode }) => ({
       "quantumdraft.in",
     ],
   },
+  preview: {
+    host: "::",
+    port: 8080,
+    allowedHosts: [
+      "quantumdraft-yz2c.onrender.com",
+      "quantumdraft.in",
+    ],
+  },
   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {
     alias: {
