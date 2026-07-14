@@ -3,25 +3,17 @@ import { motion } from "framer-motion";
 
 const testimonials = [
   {
-    quote: "QuantumDraft completely reimagined our digital platform. They delivered a modular, Next.js dashboard with integrated AI models that scaled our automated scheduling processing. Their communication was transparent throughout.",
-    author: "Elena Rostov",
-    role: "VP of Engineering",
-    company: "Solis Healthcare",
-    rating: 5,
-    initials: "ER"
-  },
-  {
     quote: "Their team engineered a B2B customs and checkout automation platform that saved us hundreds of manual hours and integrated directly with our APIs. The code is exceptionally clean and well-documented.",
     author: "Marcus Chen",
-    role: "Director of Product",
+    role: "Founder",
     company: "KK Exports Ltd",
     rating: 5,
     initials: "MC"
   },
   {
     quote: "An elite technical agency. We partnered with them for our custom EV reservation terminal. The interactive UI transitions and payment integration built with React and Tailwind exceeded our visual and performance expectations.",
-    author: "Rohan Sharma",
-    role: "Chief Marketing Officer",
+    author: "Dharaneesh",
+    role: "CTO",
     company: "RR Motors Group",
     rating: 5,
     initials: "RS"
@@ -50,7 +42,7 @@ const Testimonials = () => {
       <div className="absolute top-10 left-10 w-[500px] h-[500px] bg-blue-500/5 blur-[150px] rounded-full pointer-events-none" />
 
       <div className="container-custom relative z-10">
-        
+
         {/* Header */}
         <div className="text-center mb-24 max-w-2xl mx-auto">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 mb-4">

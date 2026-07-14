@@ -1,50 +1,37 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Mail, MapPin, Phone, Linkedin, Instagram, Twitter, Compass, Send } from "lucide-react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Mail, MapPin, Phone, Linkedin, Instagram, Twitter, Compass, ArrowUpRight, Copy, Check, MessageSquare, Clock } from "lucide-react";
 import { motion } from "framer-motion";
 
 const Contact = () => {
   const { toast } = useToast();
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    category: "",
-    message: "",
-  });
+  const [copiedEmail, setCopiedEmail] = useState(false);
+  const [copiedPhone, setCopiedPhone] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    try {
-      const rawMessage = `*New Contact Form Submission*\n\n*Name:* ${formData.name}\n*Email:* ${formData.email}\n*Category:* ${formData.category}\n*Message:* ${formData.message}`;
-      const whatsappUrl = `https://wa.me/918925647608?text=${encodeURIComponent(rawMessage)}`;
-      
-      window.open(whatsappUrl, '_blank');
-      
-      toast({
-        title: "Redirecting to WhatsApp",
-        description: "Your message has been formatted for WhatsApp.",
-      });
-      
-      setFormData({ name: "", email: "", category: "", message: "" });
-    } catch (error) {
-      console.error("Error:", error);
-      toast({
-        title: "Error",
-        description: "Failed to open WhatsApp. Please try again.",
-        variant: "destructive",
-      });
-    }
+  const emailAddress = "info.quantumdraft@gmail.com";
+  const phoneNumber = "+91 89256 47608";
+  const whatsappNumber = "918925647608";
+  const mapsUrl = "https://maps.google.com/?q=Quantum+Draft+Technologies,+3CQV%2B28,+Tiruppur,+Tamil+Nadu";
+
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText(emailAddress);
+    setCopiedEmail(true);
+    toast({
+      title: "Email Copied",
+      description: "info.quantumdraft@gmail.com has been copied to clipboard.",
+    });
+    setTimeout(() => setCopiedEmail(false), 2000);
+  };
+
+  const handleCopyPhone = () => {
+    navigator.clipboard.writeText(phoneNumber.replace(/\s+/g, ""));
+    setCopiedPhone(true);
+    toast({
+      title: "Phone Number Copied",
+      description: "+918925647608 has been copied to clipboard.",
+    });
+    setTimeout(() => setCopiedPhone(false), 2000);
   };
 
   return (
@@ -55,138 +42,174 @@ const Contact = () => {
       <div className="container-custom relative z-10">
         
         {/* Header */}
-        <div className="text-center mb-24 max-w-2xl mx-auto">
+        <div className="text-center mb-20 max-w-2xl mx-auto">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 mb-4">
             <span className="text-xs font-semibold uppercase text-blue-400 font-sans tracking-wide">Connect</span>
           </div>
           <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight font-sans mb-4">
-            Initialize Your <span className="gradient-text-blue">Project</span>
+            Get in Touch with <span className="gradient-text-blue">Our Team</span>
           </h2>
           <p className="text-base text-white/60 font-sans">
-            Ready to scale your digital ecosystem? Reach out to our engineering office or complete the form.
+            Ready to scale your digital ecosystem? Reach out to our engineering office through any of our direct channels.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-stretch">
           
-          {/* Left Column: Modern Contact Form */}
-          <div className="glass-panel p-8 md:p-10 text-left relative overflow-hidden">
-            <h3 className="text-xl font-bold text-white uppercase tracking-wider mb-8 font-sans">
-              Send a Transmission
-            </h3>
+          {/* Left Column: Direct Communication Hub */}
+          <div className="flex flex-col gap-6 justify-between h-full">
             
-            <form onSubmit={handleSubmit} className="space-y-6 font-sans">
-              <div>
-                <label htmlFor="name" className="block text-xs font-bold text-white/40 uppercase tracking-wider mb-2 font-mono">
-                  Your Name
-                </label>
-                <Input
-                  id="name"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  placeholder="Enter name"
-                  className="bg-white/[0.01] border border-white/[0.06] focus:border-blue-500 h-12 text-white placeholder:text-white/20 rounded-xl"
-                  required
-                />
-              </div>
-
-              <div>
-                <label htmlFor="email" className="block text-xs font-bold text-white/40 uppercase tracking-wider mb-2 font-mono">
-                  Email Address
-                </label>
-                <Input
-                  id="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  placeholder="name@domain.com"
-                  className="bg-white/[0.01] border border-white/[0.06] focus:border-blue-500 h-12 text-white placeholder:text-white/20 rounded-xl"
-                  required
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold text-white/40 uppercase tracking-wider mb-2 font-mono">
-                  Required Capability
-                </label>
-                <Select
-                  value={formData.category}
-                  onValueChange={(value) => setFormData({ ...formData, category: value })}
-                  required
-                >
-                  <SelectTrigger className="bg-white/[0.01] border border-white/[0.06] h-12 text-white rounded-xl focus:border-blue-500">
-                    <SelectValue placeholder="Select target service" />
-                  </SelectTrigger>
-                  <SelectContent className="bg-[#0A0A0C] border-white/10 text-white font-sans rounded-xl">
-                    <SelectItem value="AI Solutions">AI Solutions</SelectItem>
-                    <SelectItem value="Web Development">Web Development</SelectItem>
-                    <SelectItem value="Mobile Apps">Mobile Apps</SelectItem>
-                    <SelectItem value="Cloud Services">Cloud Services</SelectItem>
-                    <SelectItem value="UI/UX Design">UI/UX Design</SelectItem>
-                    <SelectItem value="Automation & API">Automation & API</SelectItem>
-                    <SelectItem value="Data Analytics">Data Analytics</SelectItem>
-                    <SelectItem value="Cyber Security">Cyber Security</SelectItem>
-                    <SelectItem value="Other">Other Category</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div>
-                <label htmlFor="message" className="block text-xs font-bold text-white/40 uppercase tracking-wider mb-2 font-mono">
-                  Project Details
-                </label>
-                <Textarea
-                  id="message"
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  placeholder="Describe your architecture requirements..."
-                  rows={4}
-                  className="bg-white/[0.01] border border-white/[0.06] focus:border-blue-500 text-white placeholder:text-white/20 rounded-xl"
-                  required
-                />
-              </div>
-
-              <Button
-                type="submit"
-                className="w-full h-14 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm uppercase tracking-widest flex items-center justify-center gap-2.5 transition-all shadow-lg shadow-blue-500/20"
-              >
-                Send Message <Send size={14} />
-              </Button>
-            </form>
-          </div>
-
-          {/* Right Column: Contact Details + Custom Vector Map Visualizer */}
-          <div className="space-y-8 text-left font-sans">
-            
-            {/* Business Contact Cards Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="p-6 rounded-2xl bg-white/[0.01] border border-white/[0.04] backdrop-blur-xl space-y-1">
-                <span className="text-[10px] text-white/40 font-mono font-bold tracking-widest uppercase block">Email</span>
-                <a href="mailto:info.quantumdraft@gmail.com" className="text-sm font-semibold text-white hover:text-blue-400 transition-colors">
-                  info.quantumdraft@gmail.com
-                </a>
-              </div>
-
-              <div className="p-6 rounded-2xl bg-white/[0.01] border border-white/[0.04] backdrop-blur-xl space-y-1">
-                <span className="text-[10px] text-white/40 font-mono font-bold tracking-widest uppercase block">Phone</span>
-                <a href="tel:+918925647608" className="text-sm font-semibold text-white hover:text-blue-400 transition-colors">
-                  +91 89256 47608
-                </a>
-              </div>
-
-              <div className="col-span-1 md:col-span-2 p-6 rounded-2xl bg-white/[0.01] border border-white/[0.04] backdrop-blur-xl space-y-2">
-                <span className="text-[10px] text-white/40 font-mono font-bold tracking-widest uppercase block">Office Location</span>
-                <div className="flex items-start gap-2.5">
-                  <MapPin className="w-4 h-4 text-blue-400 shrink-0 mt-0.5" />
-                  <span className="text-sm text-white/70">
-                    KPR Incubation Hub, Coimbatore, Tamil Nadu, India
+            {/* Primary Channel: WhatsApp */}
+            <div className="glass-panel p-6 sm:p-8 text-left relative overflow-hidden flex flex-col justify-between h-full border border-blue-500/10 group transition-all duration-300 hover:border-blue-500/30">
+              <div className="absolute top-0 right-0 w-[200px] h-[200px] bg-green-500/5 blur-[80px] rounded-full pointer-events-none" />
+              
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="w-12 h-12 rounded-2xl bg-green-500/10 flex items-center justify-center text-green-400 border border-green-500/20">
+                    <MessageSquare className="w-6 h-6" />
+                  </div>
+                  <span className="px-3 py-1 rounded-full bg-green-500/10 text-green-400 text-[10px] font-mono font-bold tracking-widest uppercase">
+                    Primary Line
                   </span>
                 </div>
+                
+                <div className="space-y-2">
+                  <h3 className="text-xl font-bold text-white uppercase tracking-wider font-sans">
+                    Immediate WhatsApp Sync
+                  </h3>
+                  <p className="text-sm text-white/60 leading-relaxed font-sans">
+                    Connect directly with our engineering and solutions lead for project scoping, pricing details, and instant developer allocation.
+                  </p>
+                </div>
+              </div>
+
+              <div className="mt-8 flex flex-col sm:flex-row gap-4 items-center">
+                <a 
+                  href={`https://wa.me/${whatsappNumber}?text=Hello%20QuantumDraft!%20I%20would%20like%20to%20discuss%20a%20project.`}
+                  target="_blank" 
+                  rel="noreferrer"
+                  className="w-full sm:w-auto flex-1"
+                >
+                  <Button className="w-full h-12 rounded-xl bg-green-600 hover:bg-green-700 text-white font-semibold text-xs uppercase tracking-widest flex items-center justify-center gap-2 transition-all shadow-lg shadow-green-500/20">
+                    Launch WhatsApp Chat <ArrowUpRight size={14} />
+                  </Button>
+                </a>
+                <span className="text-sm font-semibold text-white/50 font-mono tracking-wider">
+                  {phoneNumber}
+                </span>
               </div>
             </div>
 
-            {/* Premium Vector Map Graphic Placeholder */}
-            <div className="glass-panel p-8 h-80 relative overflow-hidden flex flex-col justify-between border border-white/[0.06]">
+            {/* Grid of Secondary Channels */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              
+              {/* Email Card */}
+              <div className="glass-panel p-6 text-left relative overflow-hidden flex flex-col justify-between border border-white/[0.05] hover:border-blue-500/20 transition-all duration-300">
+                <div className="space-y-4">
+                  <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 border border-blue-500/20">
+                    <Mail className="w-5 h-5" />
+                  </div>
+                  <div className="space-y-1">
+                    <span className="text-[10px] text-white/40 font-mono font-bold tracking-widest uppercase block">Email Address</span>
+                    <a href={`mailto:${emailAddress}`} className="text-sm font-semibold text-white hover:text-blue-400 transition-colors block break-all">
+                      {emailAddress}
+                    </a>
+                  </div>
+                </div>
+
+                <div className="mt-6 flex gap-2">
+                  <a href={`mailto:${emailAddress}`} className="flex-1">
+                    <Button variant="outline" className="w-full h-10 rounded-lg bg-white/[0.02] border-white/10 hover:bg-white/[0.06] text-white text-[10px] font-bold uppercase tracking-widest">
+                      Compose
+                    </Button>
+                  </a>
+                  <Button 
+                    variant="outline"
+                    onClick={handleCopyEmail}
+                    className="w-10 h-10 p-0 rounded-lg bg-white/[0.02] border-white/10 hover:bg-white/[0.06] text-white/60 hover:text-white"
+                  >
+                    {copiedEmail ? <Check size={14} className="text-green-400" /> : <Copy size={14} />}
+                  </Button>
+                </div>
+              </div>
+
+              {/* Voice Card */}
+              <div className="glass-panel p-6 text-left relative overflow-hidden flex flex-col justify-between border border-white/[0.05] hover:border-blue-500/20 transition-all duration-300">
+                <div className="space-y-4">
+                  <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 border border-blue-500/20">
+                    <Phone className="w-5 h-5" />
+                  </div>
+                  <div className="space-y-1">
+                    <span className="text-[10px] text-white/40 font-mono font-bold tracking-widest uppercase block">Voice Line</span>
+                    <a href={`tel:${phoneNumber.replace(/\s+/g, "")}`} className="text-sm font-semibold text-white hover:text-blue-400 transition-colors block">
+                      {phoneNumber}
+                    </a>
+                  </div>
+                </div>
+
+                <div className="mt-6 flex gap-2">
+                  <a href={`tel:${phoneNumber.replace(/\s+/g, "")}`} className="flex-1">
+                    <Button variant="outline" className="w-full h-10 rounded-lg bg-white/[0.02] border-white/10 hover:bg-white/[0.06] text-white text-[10px] font-bold uppercase tracking-widest">
+                      Call Now
+                    </Button>
+                  </a>
+                  <Button 
+                    variant="outline"
+                    onClick={handleCopyPhone}
+                    className="w-10 h-10 p-0 rounded-lg bg-white/[0.02] border-white/10 hover:bg-white/[0.06] text-white/60 hover:text-white"
+                  >
+                    {copiedPhone ? <Check size={14} className="text-green-400" /> : <Copy size={14} />}
+                  </Button>
+                </div>
+              </div>
+
+            </div>
+
+            {/* System Status / Response SLA Badge */}
+            <div className="p-4 rounded-xl bg-white/[0.01] border border-white/[0.04] flex items-center justify-between font-mono text-[10px] text-white/40 tracking-wider">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                <span>OFFICE SYSTEM STATUS: ONLINE</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <Clock className="w-3.5 h-3.5 text-blue-400" />
+                <span>RESPONSE SLA &lt; 2H</span>
+              </div>
+            </div>
+
+          </div>
+
+          {/* Right Column: Physical Presence, Custom Vector Map, Socials */}
+          <div className="flex flex-col gap-6 justify-between h-full">
+            
+            {/* Physical Location Card */}
+            <div className="glass-panel p-6 sm:p-8 text-left relative overflow-hidden flex flex-col justify-between border border-white/[0.05] hover:border-blue-500/20 transition-all duration-300">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 border border-blue-500/20">
+                    <MapPin className="w-5 h-5" />
+                  </div>
+                  <span className="px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 text-[8px] font-mono">Headquarters</span>
+                </div>
+                <div className="space-y-2">
+                  <span className="text-[10px] text-white/40 font-mono font-bold tracking-widest uppercase block">Office Location</span>
+                  <p className="text-sm font-semibold text-white/80 leading-relaxed font-sans">
+                    Quantum Draft Technologies, 3CQV+28, Tiruppur, Tamil Nadu, India
+                  </p>
+                </div>
+              </div>
+
+              <div className="mt-6">
+                <a href={mapsUrl} target="_blank" rel="noreferrer" className="block w-full">
+                  <Button variant="outline" className="w-full h-11 rounded-xl bg-white/[0.02] border-white/10 hover:bg-white/[0.06] hover:text-white text-white text-xs font-semibold uppercase tracking-wider flex items-center justify-center gap-2">
+                    Open in Google Maps <ArrowUpRight size={12} />
+                  </Button>
+                </a>
+              </div>
+            </div>
+
+            {/* Premium Vector Map Graphic */}
+            <div className="glass-panel p-6 sm:p-8 h-64 sm:h-72 relative overflow-hidden flex flex-col justify-between border border-white/[0.06]">
               {/* Abstract Dot Matrix Map Background */}
               <div className="absolute inset-0 opacity-10 bg-[radial-gradient(rgba(255,255,255,.15)_1px,transparent_1px)] bg-[size:15px_15px] pointer-events-none" />
               
@@ -208,24 +231,25 @@ const Contact = () => {
 
               {/* Coordinate Metrics Footer */}
               <div className="space-y-1 text-left relative z-10">
-                <div className="text-xl font-bold text-white font-sans uppercase">Coimbatore Office</div>
-                <div className="text-[10px] text-white/40 font-mono">11.0183° N, 76.9558° E // KPR Hub</div>
+                <div className="text-lg font-bold text-white font-sans uppercase">Tiruppur Office</div>
+                <div className="text-[10px] text-white/40 font-mono">11.1122° N, 77.3544° E // Quantum Draft</div>
               </div>
             </div>
 
-            {/* Social Links Cards */}
-            <div className="p-6 rounded-2xl bg-white/[0.01] border border-white/[0.04] backdrop-blur-xl flex items-center justify-between">
-              <span className="text-xs font-semibold text-white/50 uppercase tracking-wider">Social Channels</span>
+            {/* Social Links Card */}
+            <div className="p-4 rounded-xl bg-white/[0.01] border border-white/[0.04] flex flex-col sm:flex-row gap-4 items-center justify-between">
+              <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest font-mono">Social Channels</span>
               <div className="flex gap-3">
                 {[
-                  { icon: Linkedin, link: "#" },
-                  { icon: Instagram, link: "#" },
-                  { icon: Twitter, link: "#" }
+                  { icon: Linkedin, link: "#", label: "LinkedIn" },
+                  { icon: Instagram, link: "#", label: "Instagram" },
+                  { icon: Twitter, link: "#", label: "Twitter" }
                 ].map((soc, idx) => (
                   <a
                     key={idx}
                     href={soc.link}
-                    className="w-10 h-10 rounded-full bg-white/5 hover:bg-blue-600 hover:text-white border border-white/10 flex items-center justify-center text-white/70 transition-all hover:scale-105"
+                    aria-label={soc.label}
+                    className="w-10 h-10 rounded-lg bg-white/5 hover:bg-blue-600 hover:text-white border border-white/10 flex items-center justify-center text-white/70 transition-all hover:scale-105"
                   >
                     <soc.icon size={15} />
                   </a>

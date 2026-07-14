@@ -160,7 +160,7 @@ const Projects = () => {
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, y: 20 }}
                 transition={{ duration: 0.3 }}
-                className="relative w-full max-w-3xl glass-panel p-8 md:p-12 overflow-hidden border border-white/10 z-10"
+                className="relative w-full max-w-3xl glass-panel p-8 md:p-12 max-h-[90vh] overflow-y-auto border border-white/10 z-10"
               >
                 {/* Close Button */}
                 <button
