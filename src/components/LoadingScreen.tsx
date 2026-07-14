@@ -10,7 +10,7 @@ const LoadingScreen = () => {
 
   // 1. Progress Counter Simulation
   useEffect(() => {
-    const duration = 2200; // Total loading time (ms)
+    const duration = 400; // Total loading time (ms)
     const intervalTime = 20;
     const steps = duration / intervalTime;
     const increment = 100 / steps;
@@ -51,15 +51,15 @@ const LoadingScreen = () => {
       tl.to(elementsRef.current, {
         opacity: 0,
         y: -30,
-        duration: 0.5,
+        duration: 0.3,
         ease: "power2.inOut"
       });
 
       tl.to(containerRef.current, {
         clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
-        duration: 0.8,
+        duration: 0.5,
         ease: "power4.inOut"
-      }, "-=0.2");
+      }, "-=0.1");
     }
   }, [progress]);
 

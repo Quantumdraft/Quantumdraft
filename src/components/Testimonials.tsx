@@ -3,15 +3,15 @@ import { motion } from "framer-motion";
 
 const testimonials = [
   {
-    quote: "Their team engineered a B2B customs and checkout automation platform that saved us hundreds of manual hours and integrated directly with our APIs. The code is exceptionally clean and well-documented.",
-    author: "Marcus Chen",
+    quote: "Their team designed and built a stunning, high-converting corporate landing page that perfectly showcases our global export services. It is exceptionally fast, responsive, and has significantly boosted our inbound trade inquiries.",
+    author: "Kathir",
     role: "Founder",
     company: "KK Exports Ltd",
     rating: 5,
     initials: "MC"
   },
   {
-    quote: "An elite technical agency. We partnered with them for our custom EV reservation terminal. The interactive UI transitions and payment integration built with React and Tailwind exceeded our visual and performance expectations.",
+    quote: "We partnered with them to develop our corporate website and integrated a custom two-wheeler consulting booking system. The booking workflow has streamlined our service slot allocation and consulting leads.",
     author: "Dharaneesh",
     role: "CTO",
     company: "RR Motors Group",

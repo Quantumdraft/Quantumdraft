@@ -53,8 +53,8 @@ const Navigation = () => {
   return (
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-[#050507]/80 backdrop-blur-xl border-b border-white/[0.06] py-4"
+        scrolled || isOpen
+          ? "bg-[#050507]/95 backdrop-blur-xl border-b border-white/[0.06] py-4"
           : "bg-transparent py-6"
       }`}
     >
@@ -62,6 +62,7 @@ const Navigation = () => {
         {/* Brand Logo */}
         <div
           onClick={() => {
+            setIsOpen(false);
             if (location.pathname !== "/") {
               navigate("/");
             } else {
@@ -201,7 +202,7 @@ const Navigation = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden border-t border-white/[0.06] bg-[#050507]/95 backdrop-blur-2xl px-6 py-8 overflow-hidden shadow-2xl"
+            className="md:hidden border-t border-white/[0.06] bg-[#050507]/95 backdrop-blur-2xl px-6 py-8 overflow-y-auto max-h-[calc(100vh-80px)] shadow-2xl"
           >
             <div className="flex flex-col gap-6 font-sans">
               <div className="border-b border-white/[0.05] pb-4">

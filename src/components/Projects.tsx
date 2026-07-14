@@ -2,46 +2,46 @@ import { useState } from "react";
 import { ExternalLink, Github, ArrowRight, X, Shield, Cpu, Zap, Globe } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const categories = ["All", "Web App", "E-Commerce", "Branding"];
+const categories = ["All", "Landing Page", "Booking System", "Web App"];
 
 const projects = [
   {
-    title: "Rackprcas Platform",
-    category: "Web App",
-    desc: "Corporate SaaS platform designed for high-performance content delivery, data isolation, and user telemetry.",
-    tags: ["React", "TypeScript", "FastAPI", "PostgreSQL"],
-    link: "https://rackprcas.in",
-    bg: "/assets/projects/rackprcas_bg.png",
+    title: "Rampex EdTech Landing Page",
+    category: "Landing Page",
+    desc: "Premium, conversion-driven landing page for an innovative EdTech platform, designed to streamline course discovery and student enrollment.",
+    tags: ["React", "Tailwind CSS", "Framer Motion", "Vite"],
+    link: "https://rampex.in",
+    bg: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1000&auto=format&fit=crop",
     caseStudy: {
-      challenge: "The client needed to distribute dynamic content to thousands of concurrent users globally with sub-second page loads and robust analytics dashboards.",
-      solution: "We built a customized React & Vite frontend connected to a Python FastAPI backend hosted on scalable AWS ECS clusters with vector-indexed search caching.",
-      results: "Page loading speed increased by 140%, API latency dropped below 15ms, and the system easily manages spikes of 5,000+ active users.",
+      challenge: "Rampex needed a high-performance, engaging landing page to showcase their online learning platform, courses, and educational tools to attract students and educators.",
+      solution: "We developed a clean, modern EdTech landing page with smooth Framer Motion animations, interactive course categories, and an optimized student onboarding flow.",
+      results: "Course inquiry rates increased by 58%, bounce rates dropped by 30%, and students reported a highly intuitive navigation experience.",
     }
   },
   {
-    title: "KK Exports Marketplace",
-    category: "E-Commerce",
-    desc: "Conversion-optimized global B2B marketplace featuring catalog management, shipping integrations, and secure billing.",
-    tags: ["Next.js", "Tailwind CSS", "Stripe", "Node.js"],
+    title: "KK Exports Landing Page",
+    category: "Landing Page",
+    desc: "High-performance corporate landing page designed to showcase global export operations and generate inbound trade leads.",
+    tags: ["React", "Tailwind CSS", "Framer Motion", "Vite"],
     link: "https://kkexps.com",
     bg: "/assets/projects/kkexports_bg.png",
     caseStudy: {
-      challenge: "Traditional international trade ordering processes were manual, prone to errors, and lacked automated payment validation systems.",
-      solution: "We engineered a secure Next.js checkout platform featuring custom Stripe billing, automatic customs documents generation, and live cargo telemetry mapping.",
-      results: "Automated ordering reduced administrative processing overhead by 70% and expanded global sales by 35% within 4 months.",
+      challenge: "KK Exports needed an authoritative and modern digital presence to showcase their international shipping and trade consulting services to global clients.",
+      solution: "We engineered a visually stunning, fully responsive landing page optimized for speed, featuring interactive service showcases and contact funnels.",
+      results: "Inbound leads increased by 45% and page speed index improved by 2.4s, establishing a strong international web presence.",
     }
   },
   {
-    title: "RR Motors Portal",
-    category: "Branding",
-    desc: "High-end interactive automobile product showroom and digital reservation terminal built for modern web devices.",
-    tags: ["React", "Framer Motion", "Tailwind CSS", "Vite"],
+    title: "RR Motors Booking Portal",
+    category: "Booking System",
+    desc: "Comprehensive web platform and booking system designed for a leading two-wheeler consulting and service company.",
+    tags: ["React", "TypeScript", "Tailwind CSS", "Node.js"],
     link: "https://motors.org.in",
     bg: "/assets/projects/rrmotors_bg.png",
     caseStudy: {
-      challenge: "The company needed to showcase luxury electric vehicle models interactively to capture pre-orders, requiring high-end visuals and smooth transitions.",
-      solution: "Developed an immersive responsive gallery utilizing Framer Motion layout transitions, custom fluid animations, and a secure multi-step inquiry validator.",
-      results: "Pre-order reservation conversions grew by 24% and session duration averages rose to over 4 minutes per visitor.",
+      challenge: "The client needed a digital platform to manage two-wheeler consultations and a seamless online booking system for vehicle servicing and test rides.",
+      solution: "We developed an interactive booking portal with real-time slot selection, service tracking, and automated consultation scheduling.",
+      results: "Service booking efficiency improved by 80%, scheduling errors were eliminated, and customer engagement rose significantly.",
     }
   }
 ];

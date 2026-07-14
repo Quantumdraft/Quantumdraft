@@ -5,30 +5,30 @@ import Footer from "@/components/Footer";
 
 const projects = [
   {
-    title: "Rackprcas",
-    category: "Corporate",
-    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2000&auto=format&fit=crop",
-    link: "https://rackprcas.in",
+    title: "Rampex",
+    category: "EdTech",
+    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1000&auto=format&fit=crop",
+    link: "https://rampex.in",
     year: "2024"
   },
   {
     title: "KK Exports",
-    category: "E-Commerce",
-    image: "https://images.unsplash.com/photo-1556761175-5973dc0f32b7?q=80&w=2000&auto=format&fit=crop",
+    category: "Landing Page",
+    image: "https://images.unsplash.com/photo-1556761175-5973dc0f32b7?q=80&w=1000&auto=format&fit=crop",
     link: "https://kkexps.com",
     year: "2023"
   },
   {
     title: "RR Motors",
-    category: "Display",
-    image: "https://images.unsplash.com/photo-1503376712351-1f2ce9c09c13?q=80&w=2000&auto=format&fit=crop",
+    category: "Booking Portal",
+    image: "https://images.unsplash.com/photo-1503376712351-1f2ce9c09c13?q=80&w=1000&auto=format&fit=crop",
     link: "https://motors.org.in",
     year: "2023"
   },
   {
     title: "Nexus Hub",
     category: "Web App",
-    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2000&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000&auto=format&fit=crop",
     link: "#",
     year: "2024"
   }

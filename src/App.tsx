@@ -19,10 +19,10 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate loading time (e.g., 2.5 seconds)
+    // Simulate loading time (e.g., 1.1 seconds)
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2500);
+    }, 1100);
 
     return () => clearTimeout(timer);
   }, []);
