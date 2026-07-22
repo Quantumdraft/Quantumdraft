@@ -20,7 +20,9 @@ import {
   Filter,
   GraduationCap,
   MessageSquare,
-  Mail
+  Mail,
+  Mic,
+  Sparkles
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
@@ -37,7 +39,8 @@ import {
 } from "@/lib/applicationStorage";
 import Footer from "@/components/Footer";
 
-const DEFAULT_PASSCODE = "admin123";
+const DEFAULT_PASSCODE = import.meta.env.VITE_ADMIN_PASSCODE || "admin123";
+const IS_USING_DEFAULT = DEFAULT_PASSCODE === "admin123";
 
 const AdminPage = () => {
   const { toast } = useToast();
@@ -46,6 +49,8 @@ const AdminPage = () => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [passcode, setPasscode] = useState("");
   const [authError, setAuthError] = useState(false);
+  const [isListening, setIsListening] = useState<boolean>(false);
+  const [speechSupported, setSpeechSupported] = useState<boolean>(false);
 
   // Tab State
   const [activeTab, setActiveTab] = useState<"applications" | "contacts">("applications");
@@ -66,6 +71,11 @@ const AdminPage = () => {
 
   // Check existing session auth
   useEffect(() => {
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if (SpeechRecognition) {
+      setSpeechSupported(true);
+    }
+
     const sessionAuth = sessionStorage.getItem("qd_admin_authenticated");
     if (sessionAuth === "true") {
       setIsAuthenticated(true);
@@ -94,6 +104,84 @@ const AdminPage = () => {
     }
   };
 
+  const startVoiceRecognition = () => {
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if (!SpeechRecognition) return;
+
+    const recognition = new SpeechRecognition();
+    recognition.continuous = false;
+    recognition.lang = "en-US";
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    recognition.onstart = () => {
+      setIsListening(true);
+      setAuthError(false);
+      toast({
+        title: "Listening...",
+        description: "Please speak the admin passcode.",
+      });
+    };
+
+    recognition.onerror = (event: any) => {
+      console.error("Speech recognition error", event.error);
+      setIsListening(false);
+      toast({
+        title: "Voice Login Failed",
+        description: `Could not recognize speech: ${event.error}.`,
+        variant: "destructive"
+      });
+    };
+
+    recognition.onend = () => {
+      setIsListening(false);
+    };
+
+    recognition.onresult = (event: any) => {
+      const transcript = event.results[0][0].transcript;
+      setPasscode(transcript);
+
+      const cleanedTranscript = transcript.trim().toLowerCase().replace(/\s+/g, "");
+      const cleanedPasscode = DEFAULT_PASSCODE.trim().toLowerCase().replace(/\s+/g, "");
+      
+      const wordToNumber = (str: string) => {
+        return str
+          .replace(/one/g, "1")
+          .replace(/two/g, "2")
+          .replace(/three/g, "3")
+          .replace(/four/g, "4")
+          .replace(/five/g, "5")
+          .replace(/six/g, "6")
+          .replace(/seven/g, "7")
+          .replace(/eight/g, "8")
+          .replace(/nine/g, "9")
+          .replace(/zero/g, "0");
+      };
+      
+      const normalizedTranscript = wordToNumber(cleanedTranscript);
+      const normalizedPasscode = wordToNumber(cleanedPasscode);
+
+      if (normalizedTranscript === normalizedPasscode || cleanedTranscript === cleanedPasscode) {
+        setIsAuthenticated(true);
+        sessionStorage.setItem("qd_admin_authenticated", "true");
+        setAuthError(false);
+        toast({
+          title: "Access Granted",
+          description: "Welcome to the Quantum Draft Technologies Admin Portal (Verified via Voice).",
+        });
+      } else {
+        setAuthError(true);
+        toast({
+          title: "Access Denied",
+          description: `Incorrect passcode spoken: "${transcript}".`,
+          variant: "destructive"
+        });
+      }
+    };
+
+    recognition.start();
+  };
+
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     if (passcode.trim() === DEFAULT_PASSCODE) {
@@ -108,7 +196,9 @@ const AdminPage = () => {
       setAuthError(true);
       toast({
         title: "Access Denied",
-        description: "Incorrect passcode. Default passcode is admin123.",
+        description: IS_USING_DEFAULT
+          ? "Incorrect passcode. Default passcode is admin123."
+          : "Incorrect passcode. Please try again.",
         variant: "destructive"
       });
     }
@@ -307,22 +397,54 @@ const AdminPage = () => {
 
             <form onSubmit={handleLogin} className="space-y-4 text-left">
               <div>
-                <label className="text-xs font-medium text-white/70 block mb-1.5 flex items-center gap-1">
-                  <Key size={12} /> Passcode
+                <label className="text-xs font-medium text-white/70 block mb-1.5 flex items-center justify-between">
+                  <span className="flex items-center gap-1"><Key size={12} /> Passcode</span>
+                  {speechSupported && (
+                    <span className="text-[10px] text-blue-400 font-mono flex items-center gap-1">
+                      <Sparkles size={10} /> Voice Login Active
+                    </span>
+                  )}
                 </label>
-                <input
-                  type="password"
-                  required
-                  placeholder="Enter passcode (Default: admin123)"
-                  value={passcode}
-                  onChange={(e) => {
-                    setPasscode(e.target.value);
-                    setAuthError(false);
-                  }}
-                  className={`w-full bg-white/5 border ${authError ? "border-red-500/80" : "border-white/10"} rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500 transition-colors placeholder:text-white/20`}
-                />
+                <div className="relative flex items-center">
+                  <input
+                    type="password"
+                    required
+                    placeholder={IS_USING_DEFAULT ? "Enter passcode (Default: admin123)" : "Enter passcode"}
+                    value={passcode}
+                    onChange={(e) => {
+                      setPasscode(e.target.value);
+                      setAuthError(false);
+                    }}
+                    className={`w-full bg-white/5 border ${authError ? "border-red-500/80" : "border-white/10"} rounded-xl pl-4 pr-12 py-3 text-sm text-white focus:outline-none focus:border-blue-500 transition-colors placeholder:text-white/20`}
+                  />
+                  {speechSupported && (
+                    <button
+                      type="button"
+                      onClick={startVoiceRecognition}
+                      disabled={isListening}
+                      className={`absolute right-3 p-2 rounded-lg transition-all ${
+                        isListening 
+                          ? "bg-blue-600 text-white animate-pulse" 
+                          : "text-white/40 hover:text-white hover:bg-white/5"
+                      }`}
+                      title="Login with Voice Command"
+                    >
+                      {isListening ? (
+                        <div className="flex items-center gap-0.5 animate-pulse">
+                          <span className="w-1 h-3.5 bg-white rounded-full animate-[bounce_1.2s_infinite_100ms]" />
+                          <span className="w-1 h-4 bg-white rounded-full animate-[bounce_1.2s_infinite_300ms]" />
+                          <span className="w-1 h-3.5 bg-white rounded-full animate-[bounce_1.2s_infinite_500ms]" />
+                        </div>
+                      ) : (
+                        <Mic size={16} />
+                      )}
+                    </button>
+                  )}
+                </div>
                 {authError && (
-                  <span className="text-[11px] text-red-400 mt-1 block">Incorrect passcode. Try admin123</span>
+                  <span className="text-[11px] text-red-400 mt-1 block">
+                    Incorrect passcode. {IS_USING_DEFAULT && "Try admin123"}
+                  </span>
                 )}
               </div>
 
