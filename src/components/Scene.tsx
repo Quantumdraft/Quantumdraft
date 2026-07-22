@@ -134,9 +134,7 @@ const SparksField = ({ active, targetPos }: { active: boolean; targetPos: THREE.
 // Features procedural welding, flashing sparks, and active hover tracking!
 // --------------------------------------------------------
 const RobotModel = () => {
-  const { viewport } = useThree();
-  const isMobile = viewport.width < 5.5;
-  const robotPositionX = isMobile ? 0 : 1.35;
+  const robotPositionX = 0;
 
   const robotGroupRef = useRef<THREE.Group>(null);
   const headRef = useRef<THREE.Group>(null);

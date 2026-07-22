@@ -43,8 +43,11 @@ const Footer = () => {
           {/* Logo & Description */}
           <div className="lg:col-span-2 space-y-6 text-left">
             <div className="flex items-center space-x-3">
-              <img src={logoImg} alt="QuantumDraft Logo" className="h-8 w-auto object-contain" />
-              <span className="text-xl font-bold tracking-tight text-white">QuantumDraft</span>
+              <img src={logoImg} alt="Quantum Draft Technologies Logo" className="h-8 w-auto object-contain" />
+              <div className="flex flex-col text-left leading-tight">
+                <span className="text-xl font-bold tracking-tight text-white">Quantum Draft</span>
+                <span className="text-[10px] font-bold uppercase tracking-widest text-blue-400 font-mono">Technologies</span>
+              </div>
             </div>
             <p className="text-sm text-white/50 leading-relaxed max-w-sm">
               We design, develop, and scale high-fidelity software architectures, neural integrations, and automated operational pipelines for global brands.
@@ -61,6 +64,11 @@ const Footer = () => {
               <li>
                 <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="text-white/60 hover:text-blue-400 transition-colors">
                   Home Page
+                </button>
+              </li>
+              <li>
+                <button onClick={() => navigate("/internship")} className="text-blue-400 hover:text-blue-300 transition-colors font-semibold flex items-center gap-1.5">
+                  Skill Training & Internship
                 </button>
               </li>
               <li>
@@ -137,12 +145,15 @@ const Footer = () => {
         {/* Lower Bar: Copyright, Policies & Socials */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           <p className="text-[10px] text-white/35 font-mono uppercase tracking-widest">
-            © 2026 QuantumDraft. All Rights Reserved.
+            © 2026 Quantum Draft Technologies. All Rights Reserved.
           </p>
           
           <div className="flex gap-6 text-[10px] text-white/35 font-mono uppercase tracking-widest">
             <a href="#" className="hover:text-blue-400 transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-blue-400 transition-colors">Public SLA</a>
+            <button onClick={() => navigate("/admin")} className="hover:text-blue-400 text-blue-400/80 transition-colors">
+              Admin Portal
+            </button>
           </div>
 
           <div className="flex gap-3">

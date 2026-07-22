@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Menu, X, ChevronDown, Cpu, Globe, Database, Shield, Zap, Sparkles, Code2 } from "lucide-react";
+import { Menu, X, ChevronDown, Cpu, Globe, Database, Shield, Zap, Sparkles, Code2, GraduationCap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logoImg from "../assets/quantum-draft-logo.png";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -48,6 +48,7 @@ const Navigation = () => {
     { name: "Who We Are", desc: "Our history, mission, vision and values", icon: Sparkles, id: "about" },
     { name: "Why Us", desc: "What sets our technology engineering apart", icon: Globe, id: "innovation" },
     { name: "Our Process", desc: "Discovery, development, deployment cycle", icon: Database, id: "process" },
+    { name: "Skill & Internship", desc: "Live projects, mentorship & career tracks", icon: GraduationCap, id: "training" },
   ];
 
   return (
@@ -71,10 +72,15 @@ const Navigation = () => {
           }}
           className="flex items-center space-x-3 cursor-pointer group"
         >
-          <img src={logoImg} alt="QuantumDraft Logo" className="h-8 w-auto object-contain group-hover:scale-105 transition-transform" />
-          <span className="text-xl font-bold tracking-tight font-sans text-white group-hover:text-blue-400 transition-colors">
-            QuantumDraft
-          </span>
+          <img src={logoImg} alt="Quantum Draft Technologies Logo" className="h-8 w-auto object-contain group-hover:scale-105 transition-transform" />
+          <div className="flex flex-col text-left leading-tight">
+            <span className="text-base md:text-xl font-bold tracking-tight font-sans text-white group-hover:text-blue-400 transition-colors">
+              Quantum Draft
+            </span>
+            <span className="text-[10px] font-bold uppercase tracking-widest text-blue-400 font-mono">
+              Technologies
+            </span>
+          </div>
         </div>
 
         {/* Desktop Links */}
@@ -168,6 +174,18 @@ const Navigation = () => {
           <button onClick={() => scrollToSection("projects")} className="text-sm font-medium text-white/70 hover:text-white transition-colors">
             Portfolio
           </button>
+          <button 
+            onClick={() => {
+              setIsOpen(false);
+              navigate("/internship");
+            }} 
+            className="text-sm font-medium text-blue-400 hover:text-blue-300 transition-colors inline-flex items-center gap-1.5"
+          >
+            <span>Internship</span>
+            <span className="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-blue-500/20 text-blue-300 border border-blue-500/30 uppercase tracking-wide">
+              Hiring
+            </span>
+          </button>
           <button onClick={() => scrollToSection("faq")} className="text-sm font-medium text-white/70 hover:text-white transition-colors">
             FAQ
           </button>
@@ -226,7 +244,14 @@ const Navigation = () => {
                   {companyMenu.map((item) => (
                     <button
                       key={item.name}
-                      onClick={() => scrollToSection(item.id)}
+                      onClick={() => {
+                        if (item.id === "training") {
+                          setIsOpen(false);
+                          navigate("/internship");
+                        } else {
+                          scrollToSection(item.id);
+                        }
+                      }}
                       className="text-left text-sm font-medium text-white/80 hover:text-blue-400 py-1"
                     >
                       {item.name}
@@ -237,6 +262,18 @@ const Navigation = () => {
 
               <button onClick={() => scrollToSection("projects")} className="text-left text-sm font-medium text-white/80 hover:text-blue-400 py-1">
                 Portfolio
+              </button>
+              <button
+                onClick={() => {
+                  setIsOpen(false);
+                  navigate("/internship");
+                }}
+                className="text-left text-sm font-semibold text-blue-400 flex items-center justify-between py-1"
+              >
+                <span>Skill Training & Internship</span>
+                <span className="px-2 py-0.5 rounded text-[9px] font-mono font-bold bg-blue-500/20 text-blue-300 border border-blue-500/30 uppercase">
+                  Hiring
+                </span>
               </button>
               <button onClick={() => scrollToSection("faq")} className="text-left text-sm font-medium text-white/80 hover:text-blue-400 py-1">
                 FAQ

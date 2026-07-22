@@ -56,7 +56,7 @@ const About = () => {
           {/* Left Column: Story + Tabs */}
           <div className="space-y-8">
             <p className="text-base md:text-lg text-white/60 leading-relaxed font-sans">
-              QuantumDraft is a digital innovation and software engineering agency. We specialize in architecting custom cloud ecosystems, integrating artificial intelligence tools, and developing high-throughput web systems. Backed by state-of-the-art incubation, we deliver clean, modular software that handles complexity seamlessly.
+              Quantum Draft Technologies is a digital innovation and software engineering agency. We specialize in architecting custom cloud ecosystems, integrating artificial intelligence tools, and developing high-throughput web systems. Backed by state-of-the-art incubation, we deliver clean, modular software that handles complexity seamlessly.
             </p>
 
             {/* Interactive Tabs Menu */}

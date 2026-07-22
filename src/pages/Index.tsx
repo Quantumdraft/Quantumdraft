@@ -1,6 +1,7 @@
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Services from "@/components/Services";
+import TrainingInternship from "@/components/TrainingInternship";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import Process from "@/components/Process";
 import Projects from "@/components/Projects";
@@ -41,7 +42,10 @@ const Index = () => {
       {/* 3. What We Do */}
       <Services />
       
-      {/* 4. Why Choose Us */}
+      {/* 4. Skill Training & Internship */}
+      <TrainingInternship id="training" />
+
+      {/* 5. Why Choose Us */}
       <WhyChooseUs />
       
       {/* 5. Process Timeline */}

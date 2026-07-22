@@ -1,5 +1,4 @@
 import { Users, Cpu, Zap, Coins, ShieldCheck, Layers, PhoneCall } from "lucide-react";
-import { motion } from "framer-motion";
 
 const advantages = [
   {
@@ -47,20 +46,6 @@ const advantages = [
 ];
 
 const WhyChooseUs = () => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const cardVariants = {
-    hidden: { opacity: 0, y: 25 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
-  };
 
   return (
     <section id="innovation" className="section-padding bg-[#050505] relative overflow-hidden mesh-gradient-2">
@@ -79,38 +64,53 @@ const WhyChooseUs = () => {
           </p>
         </div>
 
-        {/* Advantage Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
-          {advantages.map((adv, idx) => {
+      {/* CSS-based Infinite Ticker track */}
+      <div className="relative w-full flex items-center overflow-hidden py-8 select-none mask-gradient mt-8">
+        {/* Shadow overlays on sides */}
+        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#050505] to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#050505] to-transparent z-10 pointer-events-none" />
+
+        <style>{`
+          @keyframes marquee-advantages {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-33.333%); }
+          }
+          .animate-marquee-adv {
+            animation: marquee-advantages 45s linear infinite;
+          }
+          .animate-marquee-adv:hover {
+            animation-play-state: paused;
+          }
+        `}</style>
+
+        {/* Marquee Track Container */}
+        <div className="flex gap-6 whitespace-nowrap animate-marquee-adv">
+          {[...advantages, ...advantages, ...advantages].map((adv, idx) => {
             const Icon = adv.icon;
             return (
-              <motion.div
-                key={adv.title}
-                variants={cardVariants}
-                className="group p-8 rounded-2xl bg-white/[0.01] border border-white/[0.06] backdrop-blur-xl transition-all duration-300 hover:bg-white/[0.02] hover:border-white/[0.1] hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)] cursor-pointer"
+              <div
+                key={idx}
+                className="group inline-flex flex-col justify-between p-8 rounded-2xl bg-white/[0.015] border border-white/[0.06] backdrop-blur-xl transition-all duration-300 hover:bg-white/[0.03] hover:border-white/[0.1] hover:shadow-[0_20px_50px_rgba(0,0,0,0.5)] cursor-pointer min-w-[340px] max-w-[340px] whitespace-normal"
               >
-                {/* Icon Container with gradient background on hover */}
-                <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${adv.color} flex items-center justify-center mb-6 border border-white/[0.04] group-hover:scale-105 transition-transform duration-300`}>
-                  <Icon className="w-5 h-5" />
-                </div>
+                <div>
+                  {/* Icon Container with gradient background on hover */}
+                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${adv.color} flex items-center justify-center mb-6 border border-white/[0.04] group-hover:scale-105 transition-transform duration-300`}>
+                    <Icon className="w-5 h-5" />
+                  </div>
 
-                <h3 className="text-lg font-bold text-white font-sans uppercase tracking-wide group-hover:text-blue-400 transition-colors mb-3">
-                  {adv.title}
-                </h3>
-                
-                <p className="text-sm text-white/50 leading-relaxed font-sans font-normal">
-                  {adv.desc}
-                </p>
-              </motion.div>
+                  <h3 className="text-lg font-bold text-white font-sans uppercase tracking-wide group-hover:text-blue-400 transition-colors mb-3">
+                    {adv.title}
+                  </h3>
+                  
+                  <p className="text-sm text-white/50 leading-relaxed font-sans font-normal">
+                    {adv.desc}
+                  </p>
+                </div>
+              </div>
             );
           })}
-        </motion.div>
+        </div>
+      </div>
 
       </div>
     </section>

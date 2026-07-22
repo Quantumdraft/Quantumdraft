@@ -1,6 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles, Code2, Database, Shield, Zap } from "lucide-react";
 import { motion } from "framer-motion";
+import { Canvas } from "@react-three/fiber";
+import Scene from "@/components/Scene";
+import { Suspense } from "react";
 
 const Hero = () => {
   const containerVariants = {
@@ -54,73 +57,94 @@ const Hero = () => {
       <div className="absolute bottom-10 right-10 w-[400px] h-[400px] bg-cyan-500/5 blur-[120px] rounded-full pointer-events-none" />
 
       {/* Main Container */}
-      <div className="relative z-10 container-custom px-6 flex flex-col items-center text-center">
+      <div className="relative z-10 container-custom px-6 max-w-7xl mx-auto flex flex-col gap-20 items-center">
         
-        {/* Floating tech pill */}
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] border border-white/[0.08] backdrop-blur-xl mb-8"
-        >
-          <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
-          <span className="text-xs font-semibold tracking-wider uppercase text-blue-300 font-sans">
-            Next-Gen Tech Agency
-          </span>
-        </motion.div>
-
-        {/* Headings */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="max-w-4xl flex flex-col items-center"
-        >
-          <motion.h1 
-            variants={itemVariants}
-            className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white leading-[1.05] mb-8 font-sans"
-          >
-            Building Intelligent<br />
-            <span className="gradient-text-blue">Digital Products</span><br />
-            for Modern Businesses
-          </motion.h1>
-
-          <motion.p 
-            variants={itemVariants}
-            className="text-lg md:text-xl text-white/60 mb-12 max-w-2xl font-sans font-normal leading-relaxed"
-          >
-            We design, build, and scale custom software systems, AI solutions, and automated workflows designed to drive growth and efficiency for enterprise companies.
-          </motion.p>
-
-          {/* Action Buttons */}
-          <motion.div 
-            variants={itemVariants}
-            className="flex flex-col sm:flex-row gap-5 justify-center items-center w-full sm:w-auto mb-20"
-          >
-            <Button
-              size="lg"
-              onClick={() => scrollToSection("contact")}
-              className="w-full sm:w-auto text-sm px-8 h-14 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-semibold transition-all shadow-lg shadow-blue-500/20 group"
+        {/* Responsive Hero Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center w-full text-center lg:text-left">
+          
+          {/* Left Column: Copywriting & CTAs */}
+          <div className="lg:col-span-7 flex flex-col items-center lg:items-start">
+            
+            {/* Floating tech pill */}
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6 }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] border border-white/[0.08] backdrop-blur-xl mb-8"
             >
-              Start Your Project
-              <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Button>
-            <Button
-              size="lg"
-              onClick={() => scrollToSection("contact")}
-              className="w-full sm:w-auto text-sm px-8 h-14 rounded-full bg-white/[0.03] border border-white/[0.08] hover:bg-white/[0.06] text-white font-semibold transition-all"
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
+              <span className="text-xs font-semibold tracking-wider uppercase text-blue-300 font-sans">
+                Next-Gen Tech Agency
+              </span>
+            </motion.div>
+
+            {/* Headings */}
+            <motion.div
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+              className="flex flex-col items-center lg:items-start"
             >
-              Book a Consultation
-            </Button>
-          </motion.div>
-        </motion.div>
+              <motion.h1 
+                variants={itemVariants}
+                className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.1] mb-8 font-sans"
+              >
+                Building Intelligent<br />
+                <span className="gradient-text-blue">Digital Products</span><br />
+                for Modern Businesses
+              </motion.h1>
+
+              <motion.p 
+                variants={itemVariants}
+                className="text-base md:text-lg text-white/60 mb-10 max-w-xl font-sans font-normal leading-relaxed text-center lg:text-left"
+              >
+                We design, build, and scale custom software systems, AI solutions, and automated workflows designed to drive growth and efficiency for enterprise companies.
+              </motion.p>
+
+              {/* Action Buttons */}
+              <motion.div 
+                variants={itemVariants}
+                className="flex flex-col sm:flex-row gap-5 justify-center lg:justify-start items-center w-full sm:w-auto"
+              >
+                <Button
+                  size="lg"
+                  onClick={() => scrollToSection("contact")}
+                  className="w-full sm:w-auto text-xs px-8 h-12 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-semibold transition-all shadow-lg shadow-blue-500/20 group"
+                >
+                  Start Your Project
+                  <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Button>
+                <Button
+                  size="lg"
+                  onClick={() => scrollToSection("contact")}
+                  className="w-full sm:w-auto text-xs px-8 h-12 rounded-full bg-white/[0.03] border border-white/[0.08] hover:bg-white/[0.06] text-white font-semibold transition-all"
+                >
+                  Book a Consultation
+                </Button>
+              </motion.div>
+            </motion.div>
+
+          </div>
+
+          {/* Right Column: 3D Interactive Telemetry Scene */}
+          <div className="lg:col-span-5 h-[320px] sm:h-[420px] lg:h-[480px] w-full relative select-none">
+            <div className="absolute inset-0 z-0">
+              <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
+                <Suspense fallback={null}>
+                  <Scene />
+                </Suspense>
+              </Canvas>
+            </div>
+          </div>
+
+        </div>
 
         {/* Floating SaaS Mockup Card */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="w-full max-w-5xl relative mb-24"
+          className="w-full max-w-5xl relative"
         >
           {/* Glass panel visualizer */}
           <div className="relative glass-panel p-2 rounded-2xl border border-white/[0.08] shadow-[0_30px_100px_rgba(0,0,0,0.9)] overflow-hidden">
@@ -214,10 +238,10 @@ const Hero = () => {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               className="flex flex-col items-center"
             >
-              <span className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-2">
+              <span className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-2 font-mono">
                 {stat.value}
               </span>
-              <span className="text-xs md:text-sm text-white/50 uppercase tracking-widest font-semibold">
+              <span className="text-xs md:text-sm text-white/50 uppercase tracking-widest font-semibold font-sans">
                 {stat.label}
               </span>
             </motion.div>
